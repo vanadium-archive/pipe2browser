@@ -1,4 +1,4 @@
-PATH:=$(VEYRON_ROOT)/environment/cout/node/bin:$(PATH)
+PATH:=$(VANADIUM_ROOT)/environment/cout/node/bin:$(PATH)
 PATH:=node_modules/.bin:../node_modules/.bin:$(PATH)
 
 # All JS files except build.js and third party
@@ -7,10 +7,10 @@ JS_FILES = $(shell find browser -name "*.js" -a -not -name "build.js" -a -not -p
 HTML_FILES = $(shell find browser -name "*.css" -a -not -path "*third-party*" -o  -name "*.html" -a -not -name "index.html" -a -not -path "*third-party*")
 
 # Builds everything
-all: node_modules browser/third-party browser/third-party/veyron browser/build.js browser/index.html $(VEYRON_ROOT)/veyron/go/bin
+all: node_modules browser/third-party browser/third-party/veyron browser/build.js browser/index.html $(VANADIUM_ROOT)/veyron/go/bin
 
 # Build p2b cli binary
-$(VEYRON_ROOT)/veyron/go/bin: p2b/main.go
+$(VANADIUM_ROOT)/veyron/go/bin: p2b/main.go
 	veyron go install veyron/...
 
 # Install what we need from NPM, tools such as jspm, serve, etc...
