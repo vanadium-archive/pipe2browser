@@ -8,10 +8,10 @@ import (
 	"io"
 	"os"
 
-	"veyron.io/veyron/veyron2/options"
-	"veyron.io/veyron/veyron2/rt"
+	"v.io/veyron/veyron2/options"
+	"v.io/veyron/veyron2/rt"
 
-	"veyron.io/examples/pipetobrowser"
+	"v.io/examples/pipetobrowser"
 )
 
 const usage = `

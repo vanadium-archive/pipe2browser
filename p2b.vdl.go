@@ -9,12 +9,12 @@ package pipetobrowser
 import (
 	// The non-user imports are prefixed with "_gen_" to prevent collisions.
 	_gen_io "io"
-	_gen_veyron2 "veyron.io/veyron/veyron2"
-	_gen_context "veyron.io/veyron/veyron2/context"
-	_gen_ipc "veyron.io/veyron/veyron2/ipc"
-	_gen_naming "veyron.io/veyron/veyron2/naming"
-	_gen_vdlutil "veyron.io/veyron/veyron2/vdl/vdlutil"
-	_gen_wiretype "veyron.io/veyron/veyron2/wiretype"
+	_gen_veyron2 "v.io/veyron/veyron2"
+	_gen_context "v.io/veyron/veyron2/context"
+	_gen_ipc "v.io/veyron/veyron2/ipc"
+	_gen_naming "v.io/veyron/veyron2/naming"
+	_gen_vdlutil "v.io/veyron/veyron2/vdl/vdlutil"
+	_gen_wiretype "v.io/veyron/veyron2/wiretype"
 )
 
 // TODO(bprosnitz) Remove this line once signatures are updated to use typevals.
