@@ -8,8 +8,8 @@ import (
 	"io"
 	"os"
 
-	"v.io/veyron/veyron2/options"
-	"v.io/veyron/veyron2/rt"
+	"v.io/core/veyron2/options"
+	"v.io/core/veyron2/rt"
 
 	"v.io/examples/pipetobrowser"
 )

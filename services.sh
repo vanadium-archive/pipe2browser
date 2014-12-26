@@ -2,7 +2,7 @@
 
 source "${VANADIUM_ROOT}/scripts/lib/shell.sh"
 
-export PATH="node_modules/.bin:${VANADIUM_ROOT}/veyron/go/bin:${PATH}"
+export PATH="node_modules/.bin:${VANADIUM_ROOT}/release/go/bin:${PATH}"
 
 main() {
   local -r VEYRON_PROXY_ADDR=proxy.envyor.com:8100
