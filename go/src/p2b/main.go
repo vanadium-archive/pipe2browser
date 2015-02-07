@@ -8,10 +8,10 @@ import (
 	"io"
 	"os"
 
-	"v.io/core/veyron2/options"
-	"v.io/core/veyron2/rt"
+	"v.io/core/veyron2"
+	"v.io/core/veyron2/vlog"
 
-	"v.io/examples/pipetobrowser"
+	"p2b/vdl"
 )
 
 const usage = `
@@ -61,26 +61,23 @@ func (w viewerPipeStreamWriter) Write(p []byte) (n int, err error) {
 
 func main() {
 	flag.Usage = Usage
-	runtime := rt.Init(options.NamespaceRoots{"/proxy.envyor.com:8101"})
-	log := runtime.Logger()
 
 	if flag.NArg() != 1 {
 		Usage()
 		return
 	}
 
+	ctx, shutdown := veyron2.Init()
+	defer shutdown()
+
 	name := flag.Arg(0)
 
 	// bind to the p2b service
-	s, err := pipetobrowser.BindViewer(name)
-	if err != nil {
-		log.Errorf("error binding to server: %v", err)
-		return
-	}
+	s := vdl.ViewerClient(name)
 
-	stream, err := s.Pipe(runtime.NewContext())
+	stream, err := s.Pipe(ctx)
 	if err != nil {
-		log.Errorf("failed to pipe to '%s' please ensure p2b service is running in the browser and name is correct.\nERR:%v", name, err)
+		vlog.Errorf("failed to pipe to '%s' please ensure p2b service is running in the browser and name is correct.\nERR:%v", name, err)
 		return
 	}
 
@@ -88,13 +85,13 @@ func main() {
 
 	_, err = io.Copy(w, os.Stdin)
 	if err != nil {
-		log.Errorf("failed to copy the stdin pipe to the outgoing stream\nERR:%v", err)
+		vlog.Errorf("failed to copy the stdin pipe to the outgoing stream\nERR:%v", err)
 		return
 	}
 
 	_, err = stream.Finish()
 	if err != nil {
-		log.Errorf("error finishing stream: %v", err)
+		vlog.Errorf("error finishing stream: %v", err)
 		return
 	}
 

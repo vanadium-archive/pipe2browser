@@ -1,5 +1,6 @@
-PATH:=$(VANADIUM_ROOT)/environment/cout/node/bin:$(PATH)
-PATH:=node_modules/.bin:../node_modules/.bin:$(PATH)
+export PATH:=$(VANADIUM_ROOT)/environment/cout/node/bin:node_modules/.bin:$(PATH)
+export GOPATH=$(PWD)/go
+export VDLPATH=$(GOPATH)
 
 # All JS files except build.js and third party
 JS_FILES = $(shell find browser -name "*.js" -a -not -name "build.js" -a -not -path "*third-party*")
@@ -9,9 +10,17 @@ HTML_FILES = $(shell find browser -name "*.css" -a -not -path "*third-party*" -o
 # Builds everything
 all: node_modules browser/third-party browser/third-party/veyron browser/build.js browser/index.html $(VANADIUM_ROOT)/release/go/bin
 
-# Build p2b cli binary
-$(VANADIUM_ROOT)/release/go/bin: p2b/main.go
-	veyron go install veyron/...
+v-binaries:
+# TODO(nlacasse): Only build the binaries we need.
+	v23 go install v.io/...
+
+# Build vdl.go
+go/src/p2b/vdl/p2b.vdl.go: v-binaries
+	vdl generate -lang=go p2b/vdl
+
+# Compile p2b cli binary
+go/bin/p2b: go/src/p2b/main.go go/src/p2b/vdl/p2b.vdl.go
+	v23 go install p2b/...
 
 # Install what we need from NPM, tools such as jspm, serve, etc...
 node_modules: package.json
@@ -60,4 +69,4 @@ clean:
 	rm -f browser/index.html
 	rm -f browser/build.js
 
-.PHONY: start clean watch
+.PHONY: start clean watch v-binaries
