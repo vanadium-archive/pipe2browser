@@ -3,10 +3,9 @@
  * @fileoverview
  */
 import { Logger } from 'libs/logs/logger'
-import { config } from 'config/config'
+import veyron from 'veyronjs'
 
 var log = new Logger('services/p2b-client');
-var veyron = new Veyron(config.veyron);
 
 /*
  * Pipes a stream of data to the P2B service identified
@@ -16,10 +15,14 @@ var veyron = new Veyron(config.veyron);
  * @return {Promise} Promise indicating if piping was successful or not
  */
 export function pipe(name, stream) {
-  var client = veyron.newClient();
-  return client.bindTo(name).then((remote) => {
-    var remoteStream = remote.pipe().stream;
-    stream.pipe(remoteStream);
-    return Promise.resolve();
+  return veyron.init().then((runtime) => {
+    var client = runtime.newClient();
+    var ctx = runtime.getContext().withTimeout(5000);
+    ctx.waitUntilDone(function(){});
+    return client.bindTo(ctx, name).then((remote) => {
+      var remoteStream = remote.pipe(ctx).stream;
+      stream.pipe(remoteStream);
+      return Promise.resolve();
+    });
   });
 }

@@ -5,10 +5,10 @@
  * @fileoverview
  */
 import { Logger } from 'libs/logs/logger'
-import { config } from 'config/config'
 import { ByteObjectStreamAdapter } from 'libs/utils/byte-object-stream-adapter'
 import { StreamByteCounter } from 'libs/utils/stream-byte-counter'
 import { StreamCopy } from 'libs/utils/stream-copy'
+import veyron from 'veyronjs'
 
 var log = new Logger('services/p2b-server');
 var server;
@@ -46,16 +46,14 @@ state.init();
  */
 export function publish(name, pipeRequestHandler) {
   log.debug('publishing under name:', name);
-  var veyron = new Veyron(config.veyron);
-  server = veyron.newServer();
   /*
    * Veyron pipe to browser service implementation.
    * Implements the p2b VDL.
    */
   var p2b = {
-    pipe($suffix, $stream) {
+    pipe(ctx, $stream) {
       return new Promise(function(resolve, reject) {
-        log.debug('received pipe request for:', $suffix);
+        log.debug('received pipe request for:', ctx.suffix);
         var numBytesForThisCall = 0;
 
         var bufferStream = new ByteObjectStreamAdapter();
@@ -86,7 +84,7 @@ export function publish(name, pipeRequestHandler) {
 
         state.numPipes++;
         try {
-          pipeRequestHandler($suffix, stream);
+          pipeRequestHandler(ctx.suffix, stream);
         } catch(e) {
           // TODO(aghassemi) envyor issue #50
           // we want to reject but because of #50 we can't
@@ -94,22 +92,31 @@ export function publish(name, pipeRequestHandler) {
           log.debug('pipeRequestHandler error', e);
           resolve();
         }
-
       });
     }
   };
 
   state.publishing = true;
 
-  return server.serve(config.publishNamePrefix + '/' + name, p2b).then((endpoint) => {
-    log.debug('published with endpoint:', endpoint);
+  return veyron.init().then((runtime) => {
+    server = runtime.newServer();
+    var serviceName = 'google/p2b/' + name;
 
-    state.published = true;
-    state.publishing = false;
-    state.fullServiceName = config.publishNamePrefix + '/' + name;
-    state.date = new Date();
+    // TODO(nlacasee,sadovsky): Our current authorization policy never returns
+    // any errors, i.e. everyone is authorized!
+    var openAuthorizer = function(){ return null; };
+    var options = {authorizer: openAuthorizer};
 
-    return endpoint;
+    return server.serve(serviceName, p2b, options).then(() => {
+      log.debug('published!');
+
+      state.published = true;
+      state.publishing = false;
+      state.fullServiceName = serviceName;
+      state.date = new Date();
+
+      return;
+    });
   }).catch((err) => { state.reset(); throw err; });
 }
 

@@ -1,4 +1,4 @@
-import { default as Stream } from "nodelibs/stream"
+import { default as Stream } from "stream"
 
 var Transform = Stream.Transform;
 /*

@@ -16,9 +16,9 @@ import { Logger } from 'libs/logs/logger'
  * This is kind of a hack as it simply exposes a path to these
  * plugins so that build bundler finds them and bundles them with the reset of the app
  */
-import { default as plugin } from './builtin/vlog/plugin'
-import { default as plugin } from './builtin/image/plugin'
-import { default as plugin } from './builtin/console/plugin'
+import { default as vlogPlugin } from './builtin/vlog/plugin'
+import { default as imagePlugin } from './builtin/image/plugin'
+import { default as consolePlugin } from './builtin/console/plugin'
 
 var log = new Logger('pipe-viewer/manager');
 

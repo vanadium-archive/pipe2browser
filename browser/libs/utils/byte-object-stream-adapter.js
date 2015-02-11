@@ -1,5 +1,5 @@
-import { default as Stream } from "nodelibs/stream"
-import { default as buffer } from "nodelibs/buffer"
+import { default as Stream } from "stream"
+import { default as buffer } from "buffer"
 
 var Transform = Stream.Transform;
 var Buffer = buffer.Buffer;

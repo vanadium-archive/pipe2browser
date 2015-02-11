@@ -5,13 +5,11 @@
 <polymer-element name="p2b-namespace-list" attributes="names selectable">
   <template>
     <link rel="stylesheet" href="component.css">
-    <template if="{{_items.length > 0}}">
-      <core-list selectable?="{{selectable}}" height="40" on-core-activate="{{fireSelectEvent}}" data="{{_items}}" height="20">
-        <template>
-          <core-item class="{{ {selected: selected} | tokenList }}" label="{{name}}"></core-item>
-        </template>
-      </core-list>
-    </template>
+    <core-list selectable?="{{selectable}}" on-core-activate="{{fireSelectEvent}}" data="{{_items}}" height="20" style="height: 200px">
+      <template>
+        <core-item class="{{ {selected: selected} | tokenList }}" label="{{model.name}}"></core-item>
+      </template>
+    </core-list>
   </template>
   <script>
     Polymer('p2b-namespace-list', {

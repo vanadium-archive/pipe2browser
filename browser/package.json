@@ -2,11 +2,14 @@
   "registry": "jspm",
   "main": "app",
   "directories": {
-    "jspmPackages": "third-party"
+    "jspmPackages": "third-party",
+    "lib": "lib",
+    "packages": "third-party"
   },
   "dependencies": {
-    "npm:event-stream": "^3.1.5",
-    "npm:humanize": "^0.0.9",
-    "nodelibs": "master"
+    "buffer": "^0.1.0",
+    "npm:event-stream": "npm:event-stream@^3.1.5",
+    "npm:humanize": "npm:humanize@^0.0.9",
+    "stream": "^0.1.0"
   }
 }

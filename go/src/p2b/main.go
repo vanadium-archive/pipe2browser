@@ -8,6 +8,7 @@ import (
 	"io"
 	"os"
 
+	_ "v.io/core/veyron/profiles/static"
 	"v.io/core/veyron2"
 	"v.io/core/veyron2/vlog"
 
@@ -28,7 +29,7 @@ Usage:
 
 	or
 
-	cat cat.jpg | google/p2b/jane/image
+	cat cat.jpg | p2b google/p2b/jane/image
 
   where <name> (google/p2b/jane) is the object name where p2b
   service is running in the browser. <viewer> (console, image) specifies what
@@ -60,6 +61,7 @@ func (w viewerPipeStreamWriter) Write(p []byte) (n int, err error) {
 }
 
 func main() {
+	flag.Parse()
 	flag.Usage = Usage
 
 	if flag.NArg() != 1 {
