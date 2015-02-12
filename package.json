@@ -1,0 +1,16 @@
+{
+  "name": "pipe-to-browser",
+  "version": "0.0.1",
+  "description": "P2B allows one to pipe anything from shell console to the browser. Data being piped to the browser then is displayed in a graphical and formatted way by a 'viewer' Viewers are pluggable pieces of code that know how to handle and display a stream of data.",
+  "devDependencies": {
+    "jspm": "0.12.0",
+    "vulcanize": "~0.7.9",
+    "serve": "~1.4.0",
+    "bower": "~1.3.12"
+  },
+  "jspm": {
+    "directories": {
+      "lib": "lib"
+    }
+  }
+}
