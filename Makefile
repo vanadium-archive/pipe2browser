@@ -1,5 +1,5 @@
-export PATH:=$(VANADIUM_ROOT)/environment/cout/node/bin:$(PWD)/node_modules/.bin:$(PATH)
-export GOPATH=$(PWD)/go
+export PATH:=$(VANADIUM_ROOT)/environment/cout/node/bin:$(CURDIR)/node_modules/.bin:$(PATH)
+export GOPATH=$(CURDIR)/go
 export VDLPATH=$(GOPATH)
 
 # All JS files except build.js and third party
