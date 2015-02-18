@@ -124,9 +124,7 @@ func (c implViewerPipeCallSend) Close() error {
 	return c.c.CloseSend()
 }
 func (c *implViewerPipeCall) Finish() (o0 vdl.AnyRep, err error) {
-	if ierr := c.Call.Finish(&o0, &err); ierr != nil {
-		err = ierr
-	}
+	err = c.Call.Finish(&o0)
 	return
 }
 
@@ -208,7 +206,6 @@ var descViewer = ipc.InterfaceDesc{
 			Doc:  "// Pipe creates a bidirectional pipe between client and viewer\n// service, returns total number of bytes received by the service\n// after streaming ends",
 			OutArgs: []ipc.ArgDesc{
 				{"", ``}, // vdl.AnyRep
-				{"", ``}, // error
 			},
 		},
 	},
