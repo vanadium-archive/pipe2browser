@@ -99,7 +99,7 @@ type ViewerPipeCall interface {
 	// Calling Finish is mandatory for releasing stream resources, unless the call
 	// has been canceled or any of the other methods return an error.  Finish should
 	// be called at most once.
-	Finish() (vdl.AnyRep, error)
+	Finish() (*vdl.Value, error)
 }
 
 type implViewerPipeCall struct {
@@ -123,7 +123,7 @@ func (c implViewerPipeCallSend) Send(item []byte) error {
 func (c implViewerPipeCallSend) Close() error {
 	return c.c.CloseSend()
 }
-func (c *implViewerPipeCall) Finish() (o0 vdl.AnyRep, err error) {
+func (c *implViewerPipeCall) Finish() (o0 *vdl.Value, err error) {
 	err = c.Call.Finish(&o0)
 	return
 }
@@ -137,7 +137,7 @@ type ViewerServerMethods interface {
 	// Pipe creates a bidirectional pipe between client and viewer
 	// service, returns total number of bytes received by the service
 	// after streaming ends
-	Pipe(ViewerPipeContext) (vdl.AnyRep, error)
+	Pipe(ViewerPipeContext) (*vdl.Value, error)
 }
 
 // ViewerServerStubMethods is the server interface containing
@@ -148,7 +148,7 @@ type ViewerServerStubMethods interface {
 	// Pipe creates a bidirectional pipe between client and viewer
 	// service, returns total number of bytes received by the service
 	// after streaming ends
-	Pipe(*ViewerPipeContextStub) (vdl.AnyRep, error)
+	Pipe(*ViewerPipeContextStub) (*vdl.Value, error)
 }
 
 // ViewerServerStub adds universal methods to ViewerServerStubMethods.
@@ -180,7 +180,7 @@ type implViewerServerStub struct {
 	gs   *ipc.GlobState
 }
 
-func (s implViewerServerStub) Pipe(ctx *ViewerPipeContextStub) (vdl.AnyRep, error) {
+func (s implViewerServerStub) Pipe(ctx *ViewerPipeContextStub) (*vdl.Value, error) {
 	return s.impl.Pipe(ctx)
 }
 
@@ -205,7 +205,7 @@ var descViewer = ipc.InterfaceDesc{
 			Name: "Pipe",
 			Doc:  "// Pipe creates a bidirectional pipe between client and viewer\n// service, returns total number of bytes received by the service\n// after streaming ends",
 			OutArgs: []ipc.ArgDesc{
-				{"", ``}, // vdl.AnyRep
+				{"", ``}, // *vdl.Value
 			},
 		},
 	},
