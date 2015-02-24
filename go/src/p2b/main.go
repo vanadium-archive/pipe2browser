@@ -9,8 +9,8 @@ import (
 	"os"
 
 	_ "v.io/core/veyron/profiles/static"
-	"v.io/core/veyron2"
-	"v.io/core/veyron2/vlog"
+	"v.io/v23"
+	"v.io/v23/vlog"
 
 	"p2b/vdl"
 )
@@ -69,7 +69,7 @@ func main() {
 		return
 	}
 
-	ctx, shutdown := veyron2.Init()
+	ctx, shutdown := v23.Init()
 	defer shutdown()
 
 	name := flag.Arg(0)
