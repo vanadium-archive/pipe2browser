@@ -234,6 +234,9 @@ System.config({
     "npm:events-browserify@0.0.1": {
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
+    "npm:format@0.2.1": {
+      "process": "github:jspm/nodelibs-process@0.1.1"
+    },
     "npm:from@0.1.3": {
       "process": "github:jspm/nodelibs-process@0.1.1",
       "stream": "github:jspm/nodelibs-stream@0.1.0"
@@ -391,9 +394,11 @@ System.config({
       "es6-shim": "npm:es6-shim@0.20.4",
       "eventemitter2": "npm:eventemitter2@0.4.14",
       "events": "github:jspm/nodelibs-events@0.1.0",
+      "format": "npm:format@0.2.1",
       "fs": "github:jspm/nodelibs-fs@0.1.1",
       "http": "github:jspm/nodelibs-http@1.7.0",
       "https": "github:jspm/nodelibs-https@0.1.0",
+      "inherits": "npm:inherits@2.0.1",
       "is-browser": "npm:is-browser@2.0.1",
       "lru-cache": "npm:lru-cache@2.5.0",
       "minimatch": "npm:minimatch@1.0.0",
@@ -404,6 +409,7 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.1",
       "punycode": "github:jspm/nodelibs-punycode@0.1.0",
       "querystring": "github:jspm/nodelibs-querystring@0.1.0",
+      "randombytes": "npm:randombytes@2.0.1",
       "stream": "github:jspm/nodelibs-stream@0.1.0",
       "string_decoder": "github:jspm/nodelibs-string_decoder@0.1.0",
       "systemjs-json": "github:systemjs/plugin-json@0.1.0",

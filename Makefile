@@ -8,7 +8,7 @@ JS_FILES = $(shell find browser -name "*.js" -a -not -name "build.js" -a -not -p
 HTML_FILES = $(shell find browser -name "*.css" -a -not -path "*third-party*" -o  -name "*.html" -a -not -name "index.html" -a -not -path "*third-party*")
 
 # Builds everything
-all: node_modules browser/third-party browser/third-party/veyron browser/build.js browser/index.html $(VANADIUM_ROOT)/release/go/bin
+all: node_modules browser/third-party browser/build.js browser/index.html $(VANADIUM_ROOT)/release/go/bin
 
 # Build vdl.go
 go/src/p2b/vdl/p2b.vdl.go:
