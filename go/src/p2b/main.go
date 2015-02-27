@@ -10,7 +10,7 @@ import (
 
 	_ "v.io/core/veyron/profiles/static"
 	"v.io/v23"
-	"v.io/v23/vlog"
+	"v.io/x/lib/vlog"
 
 	"p2b/vdl"
 )
