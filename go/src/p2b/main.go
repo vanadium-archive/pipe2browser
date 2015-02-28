@@ -8,9 +8,9 @@ import (
 	"io"
 	"os"
 
-	_ "v.io/core/veyron/profiles/static"
 	"v.io/v23"
 	"v.io/x/lib/vlog"
+	_ "v.io/x/ref/profiles/static"
 
 	"p2b/vdl"
 )
