@@ -20,7 +20,7 @@ System.config({
     "npm:event-stream": "npm:event-stream@3.2.2",
     "npm:humanize": "npm:humanize@0.0.9",
     "stream": "github:jspm/nodelibs-stream@0.1.0",
-    "veyronjs": "npm:veyronjs@0.0.1",
+    "vanadium": "npm:vanadium@0.0.1",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
     },
@@ -57,7 +57,7 @@ System.config({
       "path-browserify": "npm:path-browserify@0.0.0"
     },
     "github:jspm/nodelibs-process@0.1.1": {
-      "process": "npm:process@0.10.0"
+      "process": "npm:process@0.10.1"
     },
     "github:jspm/nodelibs-punycode@0.1.0": {
       "punycode": "npm:punycode@1.3.2"
@@ -369,7 +369,7 @@ System.config({
       "stream": "github:jspm/nodelibs-stream@0.1.0"
     },
     "npm:timers-browserify@1.3.0": {
-      "process": "npm:process@0.10.0"
+      "process": "npm:process@0.10.1"
     },
     "npm:url@0.10.2": {
       "assert": "github:jspm/nodelibs-assert@0.1.0",
@@ -381,7 +381,7 @@ System.config({
       "inherits": "npm:inherits@2.0.1",
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
-    "npm:veyronjs@0.0.1": {
+    "npm:vanadium@0.0.1": {
       "assert": "github:jspm/nodelibs-assert@0.1.0",
       "bluebird": "npm:bluebird@2.9.8",
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
@@ -391,6 +391,7 @@ System.config({
       "crypto": "github:jspm/nodelibs-crypto@0.1.0",
       "dgram": "github:jspm/nodelibs-dgram@0.1.0",
       "dns": "github:jspm/nodelibs-dns@0.1.0",
+      "domready": "npm:domready@1.0.7",
       "es6-shim": "npm:es6-shim@0.20.4",
       "eventemitter2": "npm:eventemitter2@0.4.14",
       "events": "github:jspm/nodelibs-events@0.1.0",

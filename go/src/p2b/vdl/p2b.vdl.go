@@ -110,17 +110,17 @@ func (c *implViewerPipeClientCall) SendStream() interface {
 	Send(item []byte) error
 	Close() error
 } {
-	return implViewerPipeCallSend{c}
+	return implViewerPipeClientCallSend{c}
 }
 
-type implViewerPipeCallSend struct {
+type implViewerPipeClientCallSend struct {
 	c *implViewerPipeClientCall
 }
 
-func (c implViewerPipeCallSend) Send(item []byte) error {
+func (c implViewerPipeClientCallSend) Send(item []byte) error {
 	return c.c.Send(item)
 }
-func (c implViewerPipeCallSend) Close() error {
+func (c implViewerPipeClientCallSend) Close() error {
 	return c.c.CloseSend()
 }
 func (c *implViewerPipeClientCall) Finish() (o0 *vdl.Value, err error) {
@@ -137,7 +137,7 @@ type ViewerServerMethods interface {
 	// Pipe creates a bidirectional pipe between client and viewer
 	// service, returns total number of bytes received by the service
 	// after streaming ends
-	Pipe(ViewerPipeContext) (*vdl.Value, error)
+	Pipe(ViewerPipeServerCall) (*vdl.Value, error)
 }
 
 // ViewerServerStubMethods is the server interface containing
@@ -148,7 +148,7 @@ type ViewerServerStubMethods interface {
 	// Pipe creates a bidirectional pipe between client and viewer
 	// service, returns total number of bytes received by the service
 	// after streaming ends
-	Pipe(*ViewerPipeContextStub) (*vdl.Value, error)
+	Pipe(*ViewerPipeServerCallStub) (*vdl.Value, error)
 }
 
 // ViewerServerStub adds universal methods to ViewerServerStubMethods.
@@ -180,8 +180,8 @@ type implViewerServerStub struct {
 	gs   *ipc.GlobState
 }
 
-func (s implViewerServerStub) Pipe(ctx *ViewerPipeContextStub) (*vdl.Value, error) {
-	return s.impl.Pipe(ctx)
+func (s implViewerServerStub) Pipe(call *ViewerPipeServerCallStub) (*vdl.Value, error) {
+	return s.impl.Pipe(call)
 }
 
 func (s implViewerServerStub) Globber() *ipc.GlobState {
@@ -227,46 +227,46 @@ type ViewerPipeServerStream interface {
 	}
 }
 
-// ViewerPipeContext represents the context passed to Viewer.Pipe.
-type ViewerPipeContext interface {
+// ViewerPipeServerCall represents the context passed to Viewer.Pipe.
+type ViewerPipeServerCall interface {
 	ipc.ServerCall
 	ViewerPipeServerStream
 }
 
-// ViewerPipeContextStub is a wrapper that converts ipc.StreamServerCall into
-// a typesafe stub that implements ViewerPipeContext.
-type ViewerPipeContextStub struct {
+// ViewerPipeServerCallStub is a wrapper that converts ipc.StreamServerCall into
+// a typesafe stub that implements ViewerPipeServerCall.
+type ViewerPipeServerCallStub struct {
 	ipc.StreamServerCall
 	valRecv []byte
 	errRecv error
 }
 
-// Init initializes ViewerPipeContextStub from ipc.StreamServerCall.
-func (s *ViewerPipeContextStub) Init(call ipc.StreamServerCall) {
+// Init initializes ViewerPipeServerCallStub from ipc.StreamServerCall.
+func (s *ViewerPipeServerCallStub) Init(call ipc.StreamServerCall) {
 	s.StreamServerCall = call
 }
 
 // RecvStream returns the receiver side of the Viewer.Pipe server stream.
-func (s *ViewerPipeContextStub) RecvStream() interface {
+func (s *ViewerPipeServerCallStub) RecvStream() interface {
 	Advance() bool
 	Value() []byte
 	Err() error
 } {
-	return implViewerPipeContextRecv{s}
+	return implViewerPipeServerCallRecv{s}
 }
 
-type implViewerPipeContextRecv struct {
-	s *ViewerPipeContextStub
+type implViewerPipeServerCallRecv struct {
+	s *ViewerPipeServerCallStub
 }
 
-func (s implViewerPipeContextRecv) Advance() bool {
+func (s implViewerPipeServerCallRecv) Advance() bool {
 	s.s.errRecv = s.s.Recv(&s.s.valRecv)
 	return s.s.errRecv == nil
 }
-func (s implViewerPipeContextRecv) Value() []byte {
+func (s implViewerPipeServerCallRecv) Value() []byte {
 	return s.s.valRecv
 }
-func (s implViewerPipeContextRecv) Err() error {
+func (s implViewerPipeServerCallRecv) Err() error {
 	if s.s.errRecv == io.EOF {
 		return nil
 	}

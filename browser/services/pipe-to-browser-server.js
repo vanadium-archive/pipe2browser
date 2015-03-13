@@ -8,7 +8,8 @@ import { Logger } from 'libs/logs/logger'
 import { ByteObjectStreamAdapter } from 'libs/utils/byte-object-stream-adapter'
 import { StreamByteCounter } from 'libs/utils/stream-byte-counter'
 import { StreamCopy } from 'libs/utils/stream-copy'
-import veyron from 'veyronjs'
+import vanadium from 'vanadium'
+import vdl from 'services/p2b/vdl/index'
 
 var log = new Logger('services/p2b-server');
 var server;
@@ -46,11 +47,16 @@ state.init();
  */
 export function publish(name, pipeRequestHandler) {
   log.debug('publishing under name:', name);
+
   /*
    * Veyron pipe to browser service implementation.
    * Implements the p2b VDL.
    */
-  var p2b = {
+  class Service extends vdl.Viewer {
+    constructor() {
+      super();
+    }
+
     pipe(ctx, $stream) {
       return new Promise(function(resolve, reject) {
         log.debug('received pipe request for:', ctx.suffix);
@@ -94,11 +100,13 @@ export function publish(name, pipeRequestHandler) {
         }
       });
     }
-  };
+  }
+
+  var p2b = new Service();
 
   state.publishing = true;
 
-  return veyron.init().then((runtime) => {
+  return vanadium.init().then((runtime) => {
     server = runtime.newServer();
     var serviceName = 'google/p2b/' + name;
 

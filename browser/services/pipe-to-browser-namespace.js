@@ -1,10 +1,10 @@
 /*
- * Implements a veyron client that talks to the namespace service and finds all
+ * Implements a vanadium client that talks to the namespace service and finds all
  * the P2B services that are available.
  * @fileoverview
  */
 import { Logger } from 'libs/logs/logger'
-import veyron from 'veyronjs'
+import vanadium from 'vanadium'
 
 var log = new Logger('services/p2b-namespace');
 
@@ -14,7 +14,7 @@ var log = new Logger('services/p2b-namespace');
  * P2B services
  */
 export function getAll() {
-  return veyron.init().then((runtime) => {
+  return vanadium.init().then((runtime) => {
     var namespace = runtime.namespace();
     var ctx = runtime.getContext().withTimeout(5000);
     ctx.waitUntilDone(function(){});

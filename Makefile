@@ -24,25 +24,28 @@ node_modules: package.json
 	npm install
 	touch node_modules
 
-# Link a local copy of veyron.js.
-# TODO(nlacasse): Remove this and put veyron.js in package.json once we can get
+# Link a local copy of vanadium.js.
+# TODO(nlacasse): Remove this and put vanadium.js in package.json once we can get
 # it from npm
-browser/third-party/npm/veyronjs@0.0.1: node_modules
+browser/third-party/npm/vanadium@0.0.1: node_modules
 	cd $(VANADIUM_ROOT)/release/javascript/core && \
-	jspm link -y npm:veyronjs@0.0.1
+	jspm link -y npm:vanadium@0.0.1
 	cd browser && \
-	jspm install -y -link npm:veyronjs
+	jspm install -y -link npm:vanadium
 
 # Install JSPM and Bower packages as listed in browser/package.json from JSPM and browser/bower.json from bower
-browser/third-party: browser/third-party/npm/veyronjs@0.0.1 browser/package.json browser/bower.json node_modules
+browser/third-party: browser/third-party/npm/vanadium@0.0.1 browser/package.json browser/bower.json node_modules
 	cd browser && \
 	jspm install -y && \
 	bower prune && \
 	bower install
 	touch browser/third-party
 
+browser/services/vdl/index.js:
+	v23 run vdl generate --lang=javascript --js_out_dir=browser/services p2b/vdl
+
 # Bundle whole app and third-party JavaScript into a single build.js
-browser/build.js: $(JS_FILES) browser/third-party node_modules
+browser/build.js: $(JS_FILES) browser/services/vdl/index.js  browser/third-party node_modules
 	cd browser; \
 	jspm setmode local; \
 	jspm bundle app build.js
@@ -69,7 +72,7 @@ clean:
 	rm -rf browser/build.js
 	rm -rf browser/index.html
 	rm -rf browser/third-party
-	rm -rf go/bin
+	rm -rf go/{bin,pkg}
 	rm -rf node_modules
 
 .PHONY: start clean watch test
