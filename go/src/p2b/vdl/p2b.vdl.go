@@ -11,7 +11,7 @@ import (
 	"io"
 	"v.io/v23"
 	"v.io/v23/context"
-	"v.io/v23/ipc"
+	"v.io/v23/rpc"
 	"v.io/v23/vdl"
 )
 
@@ -24,20 +24,20 @@ type ViewerClientMethods interface {
 	// Pipe creates a bidirectional pipe between client and viewer
 	// service, returns total number of bytes received by the service
 	// after streaming ends
-	Pipe(*context.T, ...ipc.CallOpt) (ViewerPipeClientCall, error)
+	Pipe(*context.T, ...rpc.CallOpt) (ViewerPipeClientCall, error)
 }
 
 // ViewerClientStub adds universal methods to ViewerClientMethods.
 type ViewerClientStub interface {
 	ViewerClientMethods
-	ipc.UniversalServiceMethods
+	rpc.UniversalServiceMethods
 }
 
 // ViewerClient returns a client stub for Viewer.
-func ViewerClient(name string, opts ...ipc.BindOpt) ViewerClientStub {
-	var client ipc.Client
+func ViewerClient(name string, opts ...rpc.BindOpt) ViewerClientStub {
+	var client rpc.Client
 	for _, opt := range opts {
-		if clientOpt, ok := opt.(ipc.Client); ok {
+		if clientOpt, ok := opt.(rpc.Client); ok {
 			client = clientOpt
 		}
 	}
@@ -46,18 +46,18 @@ func ViewerClient(name string, opts ...ipc.BindOpt) ViewerClientStub {
 
 type implViewerClientStub struct {
 	name   string
-	client ipc.Client
+	client rpc.Client
 }
 
-func (c implViewerClientStub) c(ctx *context.T) ipc.Client {
+func (c implViewerClientStub) c(ctx *context.T) rpc.Client {
 	if c.client != nil {
 		return c.client
 	}
 	return v23.GetClient(ctx)
 }
 
-func (c implViewerClientStub) Pipe(ctx *context.T, opts ...ipc.CallOpt) (ocall ViewerPipeClientCall, err error) {
-	var call ipc.ClientCall
+func (c implViewerClientStub) Pipe(ctx *context.T, opts ...rpc.CallOpt) (ocall ViewerPipeClientCall, err error) {
+	var call rpc.ClientCall
 	if call, err = c.c(ctx).StartCall(ctx, c.name, "Pipe", nil, opts...); err != nil {
 		return
 	}
@@ -103,7 +103,7 @@ type ViewerPipeClientCall interface {
 }
 
 type implViewerPipeClientCall struct {
-	ipc.ClientCall
+	rpc.ClientCall
 }
 
 func (c *implViewerPipeClientCall) SendStream() interface {
@@ -141,7 +141,7 @@ type ViewerServerMethods interface {
 }
 
 // ViewerServerStubMethods is the server interface containing
-// Viewer methods, as expected by ipc.Server.
+// Viewer methods, as expected by rpc.Server.
 // The only difference between this interface and ViewerServerMethods
 // is the streaming methods.
 type ViewerServerStubMethods interface {
@@ -155,21 +155,21 @@ type ViewerServerStubMethods interface {
 type ViewerServerStub interface {
 	ViewerServerStubMethods
 	// Describe the Viewer interfaces.
-	Describe__() []ipc.InterfaceDesc
+	Describe__() []rpc.InterfaceDesc
 }
 
 // ViewerServer returns a server stub for Viewer.
 // It converts an implementation of ViewerServerMethods into
-// an object that may be used by ipc.Server.
+// an object that may be used by rpc.Server.
 func ViewerServer(impl ViewerServerMethods) ViewerServerStub {
 	stub := implViewerServerStub{
 		impl: impl,
 	}
 	// Initialize GlobState; always check the stub itself first, to handle the
 	// case where the user has the Glob method defined in their VDL source.
-	if gs := ipc.NewGlobState(stub); gs != nil {
+	if gs := rpc.NewGlobState(stub); gs != nil {
 		stub.gs = gs
-	} else if gs := ipc.NewGlobState(impl); gs != nil {
+	} else if gs := rpc.NewGlobState(impl); gs != nil {
 		stub.gs = gs
 	}
 	return stub
@@ -177,34 +177,34 @@ func ViewerServer(impl ViewerServerMethods) ViewerServerStub {
 
 type implViewerServerStub struct {
 	impl ViewerServerMethods
-	gs   *ipc.GlobState
+	gs   *rpc.GlobState
 }
 
 func (s implViewerServerStub) Pipe(call *ViewerPipeServerCallStub) (*vdl.Value, error) {
 	return s.impl.Pipe(call)
 }
 
-func (s implViewerServerStub) Globber() *ipc.GlobState {
+func (s implViewerServerStub) Globber() *rpc.GlobState {
 	return s.gs
 }
 
-func (s implViewerServerStub) Describe__() []ipc.InterfaceDesc {
-	return []ipc.InterfaceDesc{ViewerDesc}
+func (s implViewerServerStub) Describe__() []rpc.InterfaceDesc {
+	return []rpc.InterfaceDesc{ViewerDesc}
 }
 
 // ViewerDesc describes the Viewer interface.
-var ViewerDesc ipc.InterfaceDesc = descViewer
+var ViewerDesc rpc.InterfaceDesc = descViewer
 
 // descViewer hides the desc to keep godoc clean.
-var descViewer = ipc.InterfaceDesc{
+var descViewer = rpc.InterfaceDesc{
 	Name:    "Viewer",
 	PkgPath: "p2b/vdl",
 	Doc:     "// Viewer allows clients to stream data to it and to request a\n// particular viewer to format and display the data.",
-	Methods: []ipc.MethodDesc{
+	Methods: []rpc.MethodDesc{
 		{
 			Name: "Pipe",
 			Doc:  "// Pipe creates a bidirectional pipe between client and viewer\n// service, returns total number of bytes received by the service\n// after streaming ends",
-			OutArgs: []ipc.ArgDesc{
+			OutArgs: []rpc.ArgDesc{
 				{"", ``}, // *vdl.Value
 			},
 		},
@@ -229,20 +229,20 @@ type ViewerPipeServerStream interface {
 
 // ViewerPipeServerCall represents the context passed to Viewer.Pipe.
 type ViewerPipeServerCall interface {
-	ipc.ServerCall
+	rpc.ServerCall
 	ViewerPipeServerStream
 }
 
-// ViewerPipeServerCallStub is a wrapper that converts ipc.StreamServerCall into
+// ViewerPipeServerCallStub is a wrapper that converts rpc.StreamServerCall into
 // a typesafe stub that implements ViewerPipeServerCall.
 type ViewerPipeServerCallStub struct {
-	ipc.StreamServerCall
+	rpc.StreamServerCall
 	valRecv []byte
 	errRecv error
 }
 
-// Init initializes ViewerPipeServerCallStub from ipc.StreamServerCall.
-func (s *ViewerPipeServerCallStub) Init(call ipc.StreamServerCall) {
+// Init initializes ViewerPipeServerCallStub from rpc.StreamServerCall.
+func (s *ViewerPipeServerCallStub) Init(call rpc.StreamServerCall) {
 	s.StreamServerCall = call
 }
 
