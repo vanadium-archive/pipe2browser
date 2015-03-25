@@ -1,3 +1,7 @@
+// Copyright 2015 The Vanadium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
 /*
  * Returns whether the given git status items matches the map of filters.
  * @param {Object} item A single git status item as defined by parser.item

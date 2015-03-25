@@ -1,3 +1,7 @@
+// Copyright 2015 The Vanadium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
 /*
  * similar to dev/null, it consumes the stream without keeping it in memory but
  * it tried to decode the steaming bytes as UTF-8 string first

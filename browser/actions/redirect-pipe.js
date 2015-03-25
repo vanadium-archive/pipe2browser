@@ -1,3 +1,7 @@
+// Copyright 2015 The Vanadium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
 /*
  * Redirects a stream to another veyron name. It prompts the user to pick
  * a Veyron name before redirecting and allows the user to chose between

@@ -1,3 +1,7 @@
+// Copyright 2015 The Vanadium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
 /*
  * Pipes action displays the Pipes page. It is normally triggered by clicking
  * the Pipes navigation item in the side bar

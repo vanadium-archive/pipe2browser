@@ -1,3 +1,7 @@
+// Copyright 2015 The Vanadium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
 /*
  * AddPipeViewer action can be used to add a new viewer to the pipes view
  * this action can be run at anytime and user can be on any view and this action

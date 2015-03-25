@@ -1,3 +1,7 @@
+// Copyright 2015 The Vanadium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
 /*
  * Image is a Pipe Viewer that displays an image
  * @tutorial cat image.jpg | p2b google/p2b/[name]/image

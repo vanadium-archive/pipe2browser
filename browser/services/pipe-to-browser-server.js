@@ -1,3 +1,7 @@
+// Copyright 2015 The Vanadium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
 /*
  * Implements and publishes a Veyron service which accepts streaming RPC
  * requests and delegates the stream back to the provided pipeRequestHandler.
