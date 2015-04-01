@@ -38,31 +38,17 @@ type ViewerClientStub interface {
 }
 
 // ViewerClient returns a client stub for Viewer.
-func ViewerClient(name string, opts ...rpc.BindOpt) ViewerClientStub {
-	var client rpc.Client
-	for _, opt := range opts {
-		if clientOpt, ok := opt.(rpc.Client); ok {
-			client = clientOpt
-		}
-	}
-	return implViewerClientStub{name, client}
+func ViewerClient(name string) ViewerClientStub {
+	return implViewerClientStub{name}
 }
 
 type implViewerClientStub struct {
-	name   string
-	client rpc.Client
-}
-
-func (c implViewerClientStub) c(ctx *context.T) rpc.Client {
-	if c.client != nil {
-		return c.client
-	}
-	return v23.GetClient(ctx)
+	name string
 }
 
 func (c implViewerClientStub) Pipe(ctx *context.T, opts ...rpc.CallOpt) (ocall ViewerPipeClientCall, err error) {
 	var call rpc.ClientCall
-	if call, err = c.c(ctx).StartCall(ctx, c.name, "Pipe", nil, opts...); err != nil {
+	if call, err = v23.GetClient(ctx).StartCall(ctx, c.name, "Pipe", nil, opts...); err != nil {
 		return
 	}
 	ocall = &implViewerPipeClientCall{ClientCall: call}
