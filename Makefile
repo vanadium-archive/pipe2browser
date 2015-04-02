@@ -42,7 +42,7 @@ browser/third-party: browser/third-party/npm/vanadium@0.0.1 browser/package.json
 	touch browser/third-party
 
 browser/services/vdl/index.js:
-	v23 run vdl generate --lang=javascript --js_out_dir=browser/services p2b/vdl
+	v23 run vdl generate --lang=javascript --js-out-dir=browser/services p2b/vdl
 
 # Bundle whole app and third-party JavaScript into a single build.js
 browser/build.js: $(JS_FILES) browser/services/vdl/index.js  browser/third-party node_modules
