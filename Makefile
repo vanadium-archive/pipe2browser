@@ -1,4 +1,4 @@
-export PATH:=$(VANADIUM_ROOT)/environment/cout/node/bin:$(CURDIR)/node_modules/.bin:$(PATH)
+export PATH:=$(V23_ROOT)/environment/cout/node/bin:$(CURDIR)/node_modules/.bin:$(PATH)
 export GOPATH=$(CURDIR)/go
 export VDLPATH=$(GOPATH)
 
@@ -8,7 +8,7 @@ JS_FILES = $(shell find browser -name "*.js" -a -not -name "build.js" -a -not -p
 HTML_FILES = $(shell find browser -name "*.css" -a -not -path "*third-party*" -o  -name "*.html" -a -not -name "index.html" -a -not -path "*third-party*")
 
 # Builds everything
-all: node_modules browser/third-party browser/build.js browser/index.html $(VANADIUM_ROOT)/release/go/bin
+all: node_modules browser/third-party browser/build.js browser/index.html $(V23_ROOT)/release/go/bin
 
 # Build vdl.go
 go/src/p2b/vdl/p2b.vdl.go:
@@ -28,7 +28,7 @@ node_modules: package.json
 # TODO(nlacasse): Remove this and put vanadium.js in package.json once we can get
 # it from npm
 browser/third-party/npm/vanadium@0.0.1: node_modules
-	cd $(VANADIUM_ROOT)/release/javascript/core && \
+	cd $(V23_ROOT)/release/javascript/core && \
 	jspm link -y npm:vanadium@0.0.1
 	cd browser && \
 	jspm install -y -link npm:vanadium
