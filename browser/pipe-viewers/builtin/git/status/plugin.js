@@ -6,7 +6,7 @@
  * git/status is a Pipe Viewer that displays output of "git status --short"
  * in a graphical grid.
  * Only supported with Git's --short  flag.
- * @tutorial git status --short | p2b google/p2b/[name]/git/status
+ * @tutorial git status --short | p2b users/jane@google.com/chrome/p2b/[name]/git/status
  * @fileoverview
  */
 import { View } from 'view';

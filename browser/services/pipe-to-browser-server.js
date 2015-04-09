@@ -36,14 +36,16 @@ export var state = {
 state.init();
 
 /*
- * Publishes the p2b service under google/p2b/{name}
- * e.g. If name is "john-tablet", p2b service will be accessible under name:
- * 'google/p2b/john-tablet'
+ * Publishes the p2b service under users/jane@google.com/chrome/p2b/{name} e.g. If
+ * name is "john-tablet", p2b service will be accessible under name:
+ * 'users/jane@google.com/chrome/p2b/john-tablet'
  *
- * pipe() method can be invoked on any 'google/p2b/{name}/suffix' name where
- * suffix identifies the viewer that can format and display the stream data
- * e.g. 'google/p2b/john-tablet/console'.pipe() will display the incoming
- * data in a data table. See /app/viewer/ for a list of available viewers.
+ * pipe() method can be invoked on any
+ * 'users/jane@google.com/chrome/p2b/{name}/suffix' name where suffix identifies the
+ * viewer that can format and display the stream data e.g.
+ * 'users/jane@google.com/chrome/p2b/john-tablet/console'.pipe() will display the
+ * incoming data in a data table. See /app/viewer/ for a list of available
+ * viewers.
  * @param {string} name Name to publish the service under
  * @param {function} pipeRequestHandler A function that will be called when
  * a request to handle a pipe stream comes in.
@@ -112,7 +114,7 @@ export function publish(name, pipeRequestHandler) {
 
   return vanadium.init().then((runtime) => {
     server = runtime.newServer();
-    var serviceName = 'google/p2b/' + name;
+    var serviceName = namespace.join(runtime.accountName, 'p2b', name);
 
     // TODO(nlacasee,sadovsky): Our current authorization policy never returns
     // any errors, i.e. everyone is authorized!

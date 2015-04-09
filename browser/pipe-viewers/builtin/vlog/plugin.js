@@ -6,8 +6,8 @@
  * vlog is a Pipe Viewer that displays veyron logs in a graphical grid.
  * Please note that Veyron writes logs to stderr stream, in *nix systems 2>&1
  * can be used to redirect stderr to stdout which can be then piped to P2B.
- * @tutorial myVeyronServerd -v=3 2>&1 | p2b google/p2b/[name]/vlog
- * @tutorial cat logfile.txt | p2b google/p2b/[name]/vlog
+ * @tutorial myVeyronServerd -v=3 2>&1 | p2b users/jane@google.com/chrome/p2b/[name]/vlog
+ * @tutorial cat logfile.txt | p2b users/jane@google.com/chrome/p2b/[name]/vlog
  * @fileoverview
  */
 import { View } from 'view';

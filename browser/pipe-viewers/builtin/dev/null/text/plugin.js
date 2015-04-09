@@ -5,7 +5,7 @@
 /*
  * similar to dev/null, it consumes the stream without keeping it in memory but
  * it tried to decode the steaming bytes as UTF-8 string first
- * @tutorial echo "To the black hole!" | p2b google/p2b/[name]/dev/null/text
+ * @tutorial echo "To the black hole!" | p2b users/jane@google.com/chrome/p2b/[name]/dev/null/text
  * @fileoverview
  */
 

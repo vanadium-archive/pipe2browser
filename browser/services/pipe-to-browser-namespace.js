@@ -23,7 +23,8 @@ export function getAll() {
     var ctx = runtime.getContext().withTimeout(5000);
     ctx.waitUntilDone(function(){});
 
-    var globResult = namespace.glob(ctx, 'google/p2b/*');
+    var globPattern = namespace.join(runtime.accountName, 'p2b/*');
+    var globResult = namespace.glob(ctx, globPattern);
     var p2bServices = [];
     globResult.stream.on('data', (p2bServiceName) => {
       p2bServices.push(p2bServiceName.name);

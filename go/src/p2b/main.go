@@ -29,13 +29,13 @@ Usage:
 
   For example:
 
-	ls -l | p2b google/p2b/jane/console
+	ls -l | p2b users/jane@google.com/chrome/p2b/jane/console
 
 	or
 
-	cat cat.jpg | p2b google/p2b/jane/image
+	cat cat.jpg | p2b users/jane@google.com/chrome/p2b/jane/image
 
-  where <name> (google/p2b/jane) is the object name where p2b
+  where <name> (users/jane@google.com/chrome/p2b/jane) is the object name where p2b
   service is running in the browser. <viewer> (console, image) specifies what
   viewer should be used to display the data.
 
@@ -43,7 +43,7 @@ Usage:
 
   For example many daemons may write log lines to stderr instead of stdout:
 
-  serverd -alsologtostderr=true 2>&1 | google/p2b/jane/vlog
+  serverd -alsologtostderr=true 2>&1 | users/jane@google.com/chrome/p2b/jane/vlog
 `
 
 func Usage() {

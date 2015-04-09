@@ -4,7 +4,7 @@
 
 /*
  * Console is a Pipe Viewer that displays a text stream as unformatted text
- * @tutorial echo "Hello World" | p2b google/p2b/[name]/console/panic
+ * @tutorial echo "Hello World" | p2b users/jane@google.com/chrome/p2b/[name]/console/panic
  * @fileoverview
  */
 

@@ -4,16 +4,16 @@ P2B allows one to pipe anything from shell console to the browser. Data being pi
 For example one can do:
 
 ``
-echo "Hi!" | p2b google/p2b/jane/console
+echo "Hi!" | p2b users/jane@google.com/chrome/p2b/console
 ``
 
 or
 
 ``
-cat cat.jpg | p2b -binary google/p2b/jane/image
+cat cat.jpg | p2b -binary users/jane@google.com/chrome/p2b/image
 ``
 
-where **google/p2b/jane** is the Object name where p2b service is running in the browser. The suffix **console** or **image** specifies what viewer should be used to display the data.
+where **users/jane@google.com/chrome/p2b** is the Object name where p2b service is running in the browser. The suffix **console** or **image** specifies what viewer should be used to display the data.
 
 Please see the help page inside the P2B application for detailed tutorials.
 

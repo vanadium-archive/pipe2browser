@@ -17,7 +17,7 @@
   <p>Now let's use the <span class="name">console</span> viewer. It can pretty much display anything, so it's a good one to start with</p>
   <p>In your Linux or Mac console run:</p>
   <pre class="code">echo "Hello World" | p2b {{publishedName}}/console</pre>
-  <p>P2B follows a basic <span class="mono">cmd | p2b google/p2b/[name]/[viewer]</span> pattern. Where <span class="mono">[name]</span> is what you publish the service under and <span class="mono">[viewer]</span> can be the name of a built-in viewer like <span class="mono">image</span> or <span class="mono">console</span> or a Url to a remote viewer that is a P2B plug-in.</p>
+  <p>P2B follows a basic <span class="mono">cmd | p2b users/jane@google.com/chrome/p2b/[name]/[viewer]</span> pattern. Where <span class="mono">[name]</span> is what you publish the service under and <span class="mono">[viewer]</span> can be the name of a built-in viewer like <span class="mono">image</span> or <span class="mono">console</span> or a Url to a remote viewer that is a P2B plug-in.</p>
   <h3>Built-in Viewers</h3>
   <p>In addition to the basic <span class="name">console</span> viewer, P2B is preloaded with the following viewers</p>
 
@@ -62,7 +62,7 @@
         if( this.serviceState && this.serviceState.published ) {
           return this.serviceState.fullServiceName
         } else {
-          return 'google/p2b/[name]';
+          return 'users/jane@google.com/chrome/p2b/[name]';
         }
       },
 
