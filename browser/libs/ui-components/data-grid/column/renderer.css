@@ -10,9 +10,20 @@
 }
 
 paper-button {
-  text-align: left;
   width: 100%;
   text-transform: none;
+}
+
+paper-button.left::shadow .button-content {
+  justify-content: left !important;
+}
+
+paper-button.center::shadow .button-content {
+  justify-content: center !important;
+}
+
+paper-button.right::shadow .button-content {
+  justify-content: right !important;
 }
 
 paper-button[disabled] {

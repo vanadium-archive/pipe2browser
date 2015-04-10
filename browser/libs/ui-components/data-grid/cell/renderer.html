@@ -1,8 +1,7 @@
-<link rel="import" href="../../../../../third-party/polymer/polymer.html">
-<polymer-element name="p2b-grid-cell-renderer" extends="td" attributes="data">
+<link rel="import" href="../../polymer/polymer.html">
+<polymer-element name="ag-data-grid-cell-renderer" extends="td" attributes="data">
   <template>
     <link rel="stylesheet" href="renderer.css">
-    <link rel="stylesheet" href="../../../../css/common-style.css">
     <div class="cell {{ {'secondary-text': !data.primary, 'no-wrap': !data.wrap} | tokenList }}">
       <content></content>
     </div>
@@ -11,7 +10,7 @@
    /*
     * @private
     */
-    Polymer('p2b-grid-cell-renderer', {
+    Polymer('ag-data-grid-cell-renderer', {
     });
   </script>
 </polymer-element>

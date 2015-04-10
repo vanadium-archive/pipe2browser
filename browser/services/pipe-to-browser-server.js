@@ -114,12 +114,15 @@ export function publish(name, pipeRequestHandler) {
 
   return vanadium.init().then((runtime) => {
     server = runtime.newServer();
-    var serviceName = namespace.join(runtime.accountName, 'p2b', name);
+    // we want to publish under users/email/ so we remove the dev dev.v.io/root/
+    // from the account name.
+    var nsPrefix = runtime.accountName.replace('dev.v.io/root/', '');
+    var serviceName = vanadium.naming.join(nsPrefix, 'p2b', name);
 
-    // TODO(nlacasee,sadovsky): Our current authorization policy never returns
-    // any errors, i.e. everyone is authorized!
-    var openAuthorizer = function(){ return null; };
-    var options = {authorizer: openAuthorizer};
+    // TODO(aghassemi) For now we only allow p2b to talk to instances running
+    // under the default authorizer
+    var defaultAuthorizer = null;
+    var options = {authorizer: defaultAuthorizer};
 
     return server.serve(serviceName, p2b, options).then(() => {
       log.debug('published!');

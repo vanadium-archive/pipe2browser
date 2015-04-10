@@ -1,17 +1,57 @@
-<link rel="import" href="../../../../third-party/polymer/polymer.html">
-<link rel="import" href="../../../../third-party/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../../../../third-party/paper-dialog/paper-dialog.html">
-<link rel="import" href="../../../../third-party/paper-dialog/paper-dialog-transition.html">
-<link rel="import" href="../../../../third-party/paper-fab/paper-fab.html">
-<link rel="import" href="../../../../third-party/core-collapse/core-collapse.html">
-<link rel="import" href="row/renderer.html">
+<!--
+ag-data-grid is an Web Component to display tabular data.
+It has built-in support for paging, search, filters, sortable columns and custom cell renderer.
+
+ag-data-grid is responsive and can automatically hide columns on smaller screens based
+on a few simple attributes defined by developer such as "importance" of a particular column.
+
+Simple usage:
+  ```
+  <ag-data-grid summary="Displays each person's score"
+    pageSize=5
+    dataSource="{{dataSource}}">
+    <ag-data-grid-column label="Name">
+      <template>
+        {{item.name}}
+      </template>
+    </ag-data-grid-column>
+    <ag-data-grid-column label="Score">
+      <template>
+        {{item.score}}
+       </template>
+    </ag-data-grid-column>
+  </ag-data-grid>
+  ```
+
+DataSource attribute expects an object that has a fetch(search, sort, filters) method.
+Please see documentation on DataSource property for details.
+
+Please see the ```demo.html``` for a full featured example.
+
+@element ag-data-grid
+@homepage https://github.com/aghassemi/ag-data-grid
+@status unstable
+-->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../paper-dialog/paper-dialog.html">
+<link rel="import" href="../paper-dialog/paper-dialog-transition.html">
+<link rel="import" href="../paper-dialog/paper-action-dialog.html">
+<link rel="import" href="../paper-fab/paper-fab.html">
+<link rel="import" href="../core-collapse/core-collapse.html">
+
+<link rel="import" href="column/ag-data-grid-column.html">
+<link rel="import" href="filter/select/item/ag-data-grid-filter-select-item.html">
+<link rel="import" href="filter/select/ag-data-grid-filter-select.html">
+<link rel="import" href="filter/toggle/ag-data-grid-filter-toggle.html">
+<link rel="import" href="search/ag-data-grid-search.html">
 <link rel="import" href="cell/renderer.html">
 <link rel="import" href="column/renderer.html">
+<link rel="import" href="row/renderer.html">
 
-<polymer-element name="p2b-grid" attributes="summary dataSource defaultSortKey defaultSortAscending pageSize">
+<polymer-element name="ag-data-grid" attributes="summary dataSource defaultSortKey defaultSortAscending pageSize responsiveWidth">
   <template>
-    <link rel="stylesheet" href="../../../css/common-style.css">
-    <link rel="stylesheet" href="component.css">
+    <link rel="stylesheet" href="ag-data-grid.css">
     <div id="templates"></div>
     <core-collapse id="searchTools">
       <div class="result-count">Showing {{ dataSourceResult.length }} items of {{totalNumItems}}</div>
@@ -25,7 +65,7 @@
     <table id="table" summary="{{ summary }}" cellpadding="0" cellpadding="0" border="0"  style="visibility:hidden" >
       <thead>
         <tr>
-          <th is="p2b-grid-column-renderer" gridState="{{ gridState }}" data="{{ col.columnData }}" repeat="{{ col in columns }}" template></th>
+          <th is="ag-data-grid-column-renderer" gridState="{{ gridState }}" data="{{ col.columnData }}" repeat="{{ col in columns }}" template></th>
           <th style="width:40px">&nbsp;<span class="screen-reader">More info</span>
             <paper-fab class="search-fab" focused icon="search" on-tap="{{ toggleSearchTools }}"></paper-fab>
           </th>
@@ -38,8 +78,8 @@
          Chromium bug: https://code.google.com/p/chromium/issues/detail?id=374315
          W3C Spec bug: https://www.w3.org/Bugs/Public/show_bug.cgi?id=15616
          -->
-        <tr is="p2b-grid-row-renderer" repeat="{{ item in dataSourceResult }}" template>
-          <td is="p2b-grid-cell-renderer" data="{{ col.columnData }}" repeat="{{ col in columns }}" template>
+        <tr is="ag-data-grid-row-renderer" repeat="{{ item in dataSourceResult }}" template>
+          <td is="ag-data-grid-cell-renderer" data="{{ col.columnData }}" repeat="{{ col in columns }}" style="text-align: {{ col.columnData.align }};" template>
             <template ref="{{ col.cellTemplateId }}" bind></template>
           </td>
           <td class="info-column">
@@ -53,16 +93,16 @@
     <!-- Pagination -->
     <template if="{{totalNumPages > 1}}">
       <div class="paginator">
-        <paper-icon-button title="Previous page" icon="hardware:keyboard-arrow-left"
+        <paper-icon-button title="Previous page" icon="chevron-left"
         class="{{ {invisible : pageNumber == 1} | tokenList }}" on-click="{{ previousPage }}"></paper-icon-button>
         <span>Page {{ pageNumber }} of {{ totalNumPages }}</span>
-        <paper-icon-button title="Next page" icon="hardware:keyboard-arrow-right"
+        <paper-icon-button title="Next page" icon="chevron-right"
         class="{{ {invisible : onLastPage } | tokenList }}" on-click="{{ nextPage }}"></paper-icon-button>
       </div>
     </template>
 
     <!-- Dialog that displays all columns and their values when more info icon activated -->
-    <paper-dialog id="dialog" heading="Details" transition="paper-dialog-transition-bottom">
+    <paper-action-dialog backdrop layered="false" id="dialog" heading="Details" transition="paper-dialog-transition-bottom">
       <template id="moreInfoTemplate" bind>
         <div class="more-dialog-content">
           <template repeat="{{ item in selectedItems }}">
@@ -73,58 +113,13 @@
           </template>
         </div>
       </template>
-      <paper-button label="Close" dismissive></paper-button>
-    </paper-dialog>
+      <paper-button dismissive>Close</paper-button>
+    </paper-action-dialog>
 
   </template>
   <script>
-    /*
-     * Reusable grid that can host search, filters and supports sortable columns and custom cell renderer
-     * @example usage:
-
-           <p2b-grid defaultSortKey="firstName"
-            defaultSortAscending
-            dataSource="{{ myContactsDataSource }}"
-            summary="Displays your contacts in a tabular format">
-
-            <!-- Search contacts-->
-            <p2b-grid-search label="Search Contacts"></p2b-grid-search>
-
-            <!-- Filter for circles -->
-            <p2b-grid-filter-select multiple key="circle" label="Circles">
-              <p2b-grid-filter-select-item checked label="Close Friends" value="close"></p2b-grid-filter-select-item>
-              <p2b-grid-filter-select-item label="Colleagues" value="far"></p2b-grid-filter-select-item>
-            </p2b-grid-filter-select>
-
-            <!-- Toggle to allow filtering by online mode-->
-            <p2b-grid-filter-toggle key="online" label="Show online only" checked></p2b-grid-filter-toggle>
-
-            <!-- Columns, sorting and cell templates -->
-            <p2b-grid-column sortable label="First Name" key="firstName" />
-              <template>{{ item.firstName }}</template>
-            </p2b-grid-column>
-
-            <p2b-grid-column sortable label="Last Name" key="lastName" />
-              <template>
-                <span style="text-transform:uppercase;">
-                  {{ item.lastName }}
-                </span>
-              </template>
-            </p2b-grid-column>
-
-            <p2b-grid-column label="Circle" key="circle"/>
-              <template>
-                <img src="images\circls\{{ item.circle }}.jpg" alt="in {{ item.circle }} circle"><img>
-              </template>
-            </p2b-grid-column>
-
-          </p2b-grid>
-
-     * DataSource attribute expects an object that has a fetch(search, sort, filters) method. Please see
-     * documentation on DataSource property for details.
-     */
-    Polymer('p2b-grid', {
-      /*
+    Polymer('ag-data-grid', {
+      /**
        * DataSource is an object that has a fetch(search, sort, filters) method where
        * search{key<string>} is current search keyword
        * sort{key<string>, ascending<bool>} current sort key and direction
@@ -134,46 +129,73 @@
        * Grid does some batching of user actions and only calls fetch when needed in a requestAnimationFrame
        * Keys provided for sort and filters correspond to keys set in the markup when constructing the grid.
        * DataSource.fetch() is expected to return an array of filtered sorted results of the items.
+       *
+       * @attribute dataSource
+       * @type Object
+       * @default null
        */
       dataSource: null,
 
-      /*
+      /**
        * Summary for the grid.
-       * @type {string}
+       * @attribute summary
+       * @type string
+       * @default ''
        */
       summary: '',
 
-      /*
+      /**
        * Initial sort key
-       * @type {string}
+       * @attribute defaultSortKey
+       * @type string
+       * @default ''
        */
       defaultSortKey: '',
 
-      /*
+      /**
        * Initial sort direction
-       * @type {string}
+       * @attribute defaultSortAscending
+       * @type boolean
+       * @default false
        */
       defaultSortAscending: false,
 
-      /*
+      /**
        * Number if items displayed in each page.
-       * Defaults to 20
-       * @type {integer}
+       * @attribute pageSize
+       * @type integer
+       * @default 20
        */
       pageSize: 20,
+
+      /**
+       * The minimum width that all columns can fix nicely in it.
+       * When screen is resized to less than this, responsive behaviour kicks in
+       * and starts hiding columns.
+       * @attribute responsiveWidth
+       * @type integer
+       * @default 768
+       */
+      responsiveWidth: 768,
 
       showMoreInfo: function(e) {
         var item = e.target.templateInstance.model.item;
         this.selectedItems = [item];
+        var me = this;
+        setTimeout(function() {
+          me.toggleDialog();
+        });
+      },
+
+      toggleDialog: function() {
         this.$.dialog.toggle();
       },
 
       ready: function() {
-
         // private property fields
         this.columns = [];
         this.pageNumber = 1;
-        this.dataSource = null;
+        //this.dataSource = null;
         this.cachedDataSourceResult = [];
         this.dataSourceResult = [];
         this.gridState = {
@@ -324,7 +346,7 @@
        * columns in reverse priority order.
        */
       adjustFlexWidths: function() {
-        var minWidth = 768;
+        var minWidth = this.responsiveWidth;
         var tableWidth = this.$.table.offsetWidth;
 
         // reset to original flex values

@@ -11,3 +11,7 @@
 :host {
   overflow: hidden;
 }
+
+.no-wrap {
+  white-space: nowrap;
+}

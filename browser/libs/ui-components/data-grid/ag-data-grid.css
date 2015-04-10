@@ -17,6 +17,11 @@ thead tr {
 
 thead tr th {
   position: relative;
+  overflow: hidden;
+}
+
+thead tr th:last-child {
+  overflow: visible;
 }
 
 td {
@@ -33,9 +38,9 @@ table tbody tr:nth-child(2) td {
   color: #0a7e07;
 }
 
-paper-dialog {
-  max-width: 80em;
-  width: 80vw;
+paper-action-dialog {
+  width: 80%;
+  max-width: 600px;
 }
 
 .more-dialog-content .heading {
@@ -55,7 +60,7 @@ paper-dialog {
 
 .search-fab {
   position: absolute;
-  right: 20px;
+  right: -5px;
   top: 10px;
   background-color: #03a9f4;
 }
@@ -101,4 +106,12 @@ paper-dialog {
 
 .paginator paper-icon-button {
   vertical-align: middle;
+}
+
+.screen-reader {
+  position: absolute;
+  top: -1000px;
+  left: -1000px;
+  width: 0px !important;
+  height: 0px !important;
 }

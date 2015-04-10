@@ -6,3 +6,8 @@ paper-input {
   width: 50%;
   color: #9e9e9e;
 }
+
+:host {
+  display: block;
+  margin-bottom: 0.75em
+}

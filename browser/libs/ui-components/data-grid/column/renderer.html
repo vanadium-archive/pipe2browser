@@ -1,0 +1,59 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../paper-button/paper-button.html">
+<polymer-element name="ag-data-grid-column-renderer" extends="th" attributes="data gridState" expects-grid-state>
+  <template>
+    <link rel="stylesheet" href="renderer.css">
+    <paper-button class="{{ data.align }}" disabled?="{{!data.sortable}}" on-tap="{{ updateGridState }}">
+      {{ formattedLabel }}
+    </paper-button>
+  </template>
+  <script>
+   /*
+    * @private
+    */
+    Polymer('ag-data-grid-column-renderer', {
+      'observe': {
+        'data.flex' : 'updateWidth',
+        'data.totalFlex' : 'updateWidth',
+        'gridState.sort.key' : 'formatLabel',
+        'gridState.sort.ascending' : 'formatLabel'
+      },
+
+      formattedLabel: '',
+
+      ready: function() {
+        this.formatLabel();
+      },
+
+      domReady: function() {
+        this.updateWidth();
+      },
+
+      updateWidth: function() {
+        // calculate the width value based on flex and total flex of the whole grid.
+        this.style.width = (this.data.flex / this.data.totalFlex) * 100 + '%';
+      },
+
+      updateGridState:function() {
+        if( !this.data.sortable ) {
+          return;
+        }
+        this.gridState.sort.ascending = !this.gridState.sort.ascending;
+        this.gridState.sort.key = this.data.key;
+      },
+
+      formatLabel: function() {
+        if (!this.data.sortable || this.gridState.sort.key != this.data.key) {
+          this.formattedLabel = this.data.label;
+          return;
+        }
+
+        if (this.gridState.sort.ascending) {
+          this.formattedLabel = this.data.label + ' \u21A5'; // up wedge unicode character
+        } else {
+          this.formattedLabel = this.data.label + ' \u21A7'; // down wedge unicode character
+        }
+      }
+    });
+  </script>
+</polymer-element>

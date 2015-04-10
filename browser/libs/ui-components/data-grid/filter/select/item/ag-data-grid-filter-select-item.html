@@ -1,0 +1,61 @@
+<!--
+ag-data-grid-filter-select-item renders an item inside the select list filter.
+
+Usage:
+  ```
+    <ag-data-grid-filter-select
+        multiple
+        key="status"
+        label="Show contacts that are">
+
+      <ag-data-grid-filter-select-item
+        checked
+        label="Online"
+        value="online">
+      </ag-data-grid-filter-select-item>
+      <ag-data-grid-filter-select-item
+        checked
+        label="Away"
+        value="away">
+      </ag-data-grid-filter-select-item>
+      <ag-data-grid-filter-select-item
+        checked
+        label="Offline"
+        value="offline">
+      </ag-data-grid-filter-select-item>
+
+    </ag-data-grid-filter-select>
+  ```
+@element ag-data-grid-filter-select-item
+-->
+<link rel="import" href="../../../../polymer/polymer.html">
+<polymer-element name="ag-data-grid-filter-select-item" attributes="label checked value">
+  <script>
+    Polymer('ag-data-grid-filter-select-item', {
+      /**
+       * Label text for the item
+       * @attribute label
+       * @type string
+       * @default ''
+       */
+      label: '',
+
+      /**
+       * Whether item is checked or not
+       * @attribute checked
+       * @type boolean
+       * @default false
+       */
+      checked: false,
+
+      /**
+       * Value that will available as filters[key] in the fetch() function of your data source.
+       * Where key is the key of the select filter that contains this item
+       * @attribute value
+       * @type string
+       * @default ''
+       */
+      value: ''
+    });
+    </script>
+</polymer-element>

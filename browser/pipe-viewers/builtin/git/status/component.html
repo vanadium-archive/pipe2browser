@@ -1,11 +1,6 @@
 <link rel="import" href="../../../../third-party/polymer/polymer.html">
 <link rel="import" href="../../../../third-party/core-icon/core-icon.html">
-<link rel="import" href="../../../../libs/ui-components/data-grid/grid/component.html">
-<link rel="import" href="../../../../libs/ui-components/data-grid/grid/column/component.html">
-<link rel="import" href="../../../../libs/ui-components/data-grid/filter/select/component.html">
-<link rel="import" href="../../../../libs/ui-components/data-grid/filter/select/item/component.html">
-<link rel="import" href="../../../../libs/ui-components/data-grid/filter/toggle/component.html">
-<link rel="import" href="../../../../libs/ui-components/data-grid/search/component.html">
+<link rel="import" href="../../../../third-party/ag-data-grid/ag-data-grid.html">
 
 <polymer-element name="p2b-plugin-git-status">
   <template>
@@ -13,53 +8,53 @@
     <link rel="stylesheet" href="../../../../libs/css/common-style.css">
     <link rel="stylesheet" href="component.css">
 
-    <p2b-grid id="grid" defaultSortKey="state" defaultSortAscending dataSource="{{ dataSource }}" summary="Data Grid displaying status of modified file for the git repository.">
+    <ag-data-grid id="grid" defaultSortKey="state" defaultSortAscending dataSource="{{ dataSource }}" summary="Data Grid displaying status of modified file for the git repository.">
 
       <!-- Search -->
-      <p2b-grid-search label="Search Logs"></p2b-grid-search>
+      <ag-data-grid-search label="Search Logs"></ag-data-grid-search>
 
       <!-- State Filter (multiple allowed) -->
-      <p2b-grid-filter-select multiple key="state" label="Show state">
-        <p2b-grid-filter-select-item checked label="Staged" value="staged"></p2b-grid-filter-select-item>
-        <p2b-grid-filter-select-item checked label="Not Staged" value="notstaged"></p2b-grid-filter-select-item>
-        <p2b-grid-filter-select-item checked label="Conflicted" value="conflicted"></p2b-grid-filter-select-item>
-        <p2b-grid-filter-select-item checked label="Untracked" value="untracked"></p2b-grid-filter-select-item>
-        <p2b-grid-filter-select-item checked label="Ignored" value="ignored"></p2b-grid-filter-select-item>
-      </p2b-grid-filter-select>
+      <ag-data-grid-filter-select multiple key="state" label="Show state">
+        <ag-data-grid-filter-select-item checked label="Staged" value="staged"></ag-data-grid-filter-select-item>
+        <ag-data-grid-filter-select-item checked label="Not Staged" value="notstaged"></ag-data-grid-filter-select-item>
+        <ag-data-grid-filter-select-item checked label="Conflicted" value="conflicted"></ag-data-grid-filter-select-item>
+        <ag-data-grid-filter-select-item checked label="Untracked" value="untracked"></ag-data-grid-filter-select-item>
+        <ag-data-grid-filter-select-item checked label="Ignored" value="ignored"></ag-data-grid-filter-select-item>
+      </ag-data-grid-filter-select>
 
       <!-- Action Filter (multiple allowed) -->
-      <p2b-grid-filter-select multiple key="action" label="Show actions">
-        <p2b-grid-filter-select-item checked label="Added" value="added"></p2b-grid-filter-select-item>
-        <p2b-grid-filter-select-item checked label="Deleted" value="deleted"></p2b-grid-filter-select-item>
-        <p2b-grid-filter-select-item checked label="Modified" value="modified"></p2b-grid-filter-select-item>
-        <p2b-grid-filter-select-item checked label="Renamed" value="renamed"></p2b-grid-filter-select-item>
-        <p2b-grid-filter-select-item checked label="Copied" value="copied"></p2b-grid-filter-select-item>
-        <p2b-grid-filter-select-item checked label="Unknown" value="unknown"></p2b-grid-filter-select-item>
-      </p2b-grid-filter-select>
+      <ag-data-grid-filter-select multiple key="action" label="Show actions">
+        <ag-data-grid-filter-select-item checked label="Added" value="added"></ag-data-grid-filter-select-item>
+        <ag-data-grid-filter-select-item checked label="Deleted" value="deleted"></ag-data-grid-filter-select-item>
+        <ag-data-grid-filter-select-item checked label="Modified" value="modified"></ag-data-grid-filter-select-item>
+        <ag-data-grid-filter-select-item checked label="Renamed" value="renamed"></ag-data-grid-filter-select-item>
+        <ag-data-grid-filter-select-item checked label="Copied" value="copied"></ag-data-grid-filter-select-item>
+        <ag-data-grid-filter-select-item checked label="Unknown" value="unknown"></ag-data-grid-filter-select-item>
+      </ag-data-grid-filter-select>
 
       <!-- Columns, sorting and cell templates -->
-      <p2b-grid-column label="State" key="state" sortable flex="2" priority="2" >
+      <ag-data-grid-column label="State" key="state" sortable flex="2" priority="2" >
         <template>
           <core-icon class="state-icon {{ item.state }}" icon="{{ item.stateIcon }}" title="{{item.state}}"></core-icon>
           <span moreInfoOnly style="vertical-align:middle">{{item.state}}</span>
         </template>
-      </p2b-grid-column>
-      <p2b-grid-column label="Action" key="action" sortable flex="2" priority="3" >
+      </ag-data-grid-column>
+      <ag-data-grid-column label="Action" key="action" sortable flex="2" priority="3" >
         <template>
           <core-icon class="action-icon {{ item.action }}" icon="{{ item.actionIcon }}" title="{{item.action}}"></core-icon>
           <span moreInfoOnly style="vertical-align:middle">{{item.action}}</span>
         </template>
-      </p2b-grid-column>
-      <p2b-grid-column label="File" key="filename" sortable primary flex="8" minFlex="5" priority="1" >
+      </ag-data-grid-column>
+      <ag-data-grid-column label="File" key="filename" sortable primary flex="8" minFlex="5" priority="1" >
         <template>{{ item.filename }}
           <div class="file-parent" title="folder: {{item.fileParent}}">{{ item.fileParent }}</div>
         </template>
-      </p2b-grid-column>
-      <p2b-grid-column label="Summary" flex="7" minFlex="3" priority="4" >
+      </ag-data-grid-column>
+      <ag-data-grid-column label="Summary" flex="7" minFlex="3" priority="4" >
         <template>{{ item.summary }}</template>
-      </p2b-grid-column>
+      </ag-data-grid-column>
 
-    </p2b-grid>
+    </ag-data-grid>
   </template>
   <script>
     Polymer('p2b-plugin-git-status', {

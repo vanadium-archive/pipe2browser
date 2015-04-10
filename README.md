@@ -4,13 +4,13 @@ P2B allows one to pipe anything from shell console to the browser. Data being pi
 For example one can do:
 
 ``
-echo "Hi!" | p2b users/jane@google.com/chrome/p2b/console
+echo "Hi!" | p2b users/jane@google.com/chrome/p2b/jane/console
 ``
 
 or
 
 ``
-cat cat.jpg | p2b -binary users/jane@google.com/chrome/p2b/image
+cat cat.jpg | p2b -binary users/jane@google.com/chrome/p2b/jane/image
 ``
 
 where **users/jane@google.com/chrome/p2b** is the Object name where p2b service is running in the browser. The suffix **console** or **image** specifies what viewer should be used to display the data.
@@ -24,9 +24,19 @@ make
 ``
 To run
 ``
+make go/bin/p2b #Builds the p2b binary
 make start #Starts a web server at 8080
 ``
-and then navigate to http://localhost:8080
+and then navigate to http://localhost:8080 and publish under a name such as 'foo'
+and run p2b rpc under vbash  with commands such as
+```
+# run vbash
+$V23_ROOT/release/go/src/v.io/x/ref/cmd/vbash
+
+# run a sample p2b command
+echo "Hello World" | go/bin/p2b users/<email-address>/chrome/p2b/foo/console
+
+```
 
 To stop simply Ctrl-C the console that started it
 

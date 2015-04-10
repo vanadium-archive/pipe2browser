@@ -23,7 +23,8 @@ export function getAll() {
     var ctx = runtime.getContext().withTimeout(5000);
     ctx.waitUntilDone(function(){});
 
-    var globPattern = namespace.join(runtime.accountName, 'p2b/*');
+    var nsPrefix = runtime.accountName.replace('dev.v.io/root/', '');
+    var globPattern = vanadium.naming.join(nsPrefix, 'p2b/*');
     var globResult = namespace.glob(ctx, globPattern);
     var p2bServices = [];
     globResult.stream.on('data', (p2bServiceName) => {

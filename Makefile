@@ -34,12 +34,17 @@ browser/third-party/npm/vanadium@0.0.1: node_modules
 	jspm install -y -link npm:vanadium
 
 # Install JSPM and Bower packages as listed in browser/package.json from JSPM and browser/bower.json from bower
-browser/third-party: browser/third-party/npm/vanadium@0.0.1 browser/package.json browser/bower.json node_modules
+browser/third-party: browser/third-party/npm/vanadium@0.0.1 browser/third-party/ag-data-grid browser/package.json browser/bower.json node_modules
 	cd browser && \
 	jspm install -y && \
 	bower prune && \
 	bower install
 	touch browser/third-party
+
+# TODO(aghassemi) Remove when data-grid is published on GitHub and just use bower
+# For now we just copy into third-party
+browser/third-party/ag-data-grid:
+	yes | cp -rf browser/libs/ui-components/data-grid browser/third-party/ag-data-grid
 
 browser/services/vdl/index.js:
 	v23 run vdl generate --lang=javascript --js-out-dir=browser/services p2b/vdl
