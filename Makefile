@@ -11,12 +11,12 @@ HTML_FILES = $(shell find browser -name "*.css" -a -not -path "*third-party*" -o
 all: node_modules browser/third-party browser/build.js browser/index.html $(V23_ROOT)/release/go/bin
 
 # Build vdl.go
-go/src/p2b/vdl/p2b.vdl.go:
+go/src/v.io/x/p2b/vdl/p2b.vdl.go:
 	v23 run vdl generate -lang=go p2b/vdl
 
 # Compile p2b cli binary
-go/bin/p2b: go/src/p2b/main.go go/src/p2b/vdl/p2b.vdl.go
-	v23 go install p2b/...
+go/bin/p2b: go/src/v.io/x/p2b/main.go go/src/v.io/x/p2b/vdl/p2b.vdl.go
+	v23 go install v.io/x/p2b/...
 
 # Install what we need from NPM, tools such as jspm, serve, etc...
 node_modules: package.json
@@ -47,7 +47,7 @@ browser/third-party/ag-data-grid:
 	yes | cp -rf browser/libs/ui-components/data-grid browser/third-party/ag-data-grid
 
 browser/services/vdl/index.js:
-	v23 run vdl generate --lang=javascript --js-out-dir=browser/services p2b/vdl
+	v23 run vdl generate --lang=javascript --js-out-dir=browser/services v.io/x/p2b/vdl
 
 # Bundle whole app and third-party JavaScript into a single build.js
 browser/build.js: $(JS_FILES) browser/services/vdl/index.js  browser/third-party node_modules

@@ -14,9 +14,8 @@ import (
 
 	"v.io/v23"
 	"v.io/x/lib/vlog"
+	"v.io/x/p2b/vdl"
 	_ "v.io/x/ref/profiles/static"
-
-	"p2b/vdl"
 )
 
 const usage = `

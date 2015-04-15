@@ -188,7 +188,7 @@ var ViewerDesc rpc.InterfaceDesc = descViewer
 // descViewer hides the desc to keep godoc clean.
 var descViewer = rpc.InterfaceDesc{
 	Name:    "Viewer",
-	PkgPath: "p2b/vdl",
+	PkgPath: "v.io/x/p2b/vdl",
 	Doc:     "// Viewer allows clients to stream data to it and to request a\n// particular viewer to format and display the data.",
 	Methods: []rpc.MethodDesc{
 		{
