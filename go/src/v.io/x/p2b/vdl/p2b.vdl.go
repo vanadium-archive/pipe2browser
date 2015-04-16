@@ -127,7 +127,7 @@ type ViewerServerMethods interface {
 	// Pipe creates a bidirectional pipe between client and viewer
 	// service, returns total number of bytes received by the service
 	// after streaming ends
-	Pipe(ViewerPipeServerCall) (*vdl.Value, error)
+	Pipe(*context.T, ViewerPipeServerCall) (*vdl.Value, error)
 }
 
 // ViewerServerStubMethods is the server interface containing
@@ -138,7 +138,7 @@ type ViewerServerStubMethods interface {
 	// Pipe creates a bidirectional pipe between client and viewer
 	// service, returns total number of bytes received by the service
 	// after streaming ends
-	Pipe(*ViewerPipeServerCallStub) (*vdl.Value, error)
+	Pipe(*context.T, *ViewerPipeServerCallStub) (*vdl.Value, error)
 }
 
 // ViewerServerStub adds universal methods to ViewerServerStubMethods.
@@ -170,8 +170,8 @@ type implViewerServerStub struct {
 	gs   *rpc.GlobState
 }
 
-func (s implViewerServerStub) Pipe(call *ViewerPipeServerCallStub) (*vdl.Value, error) {
-	return s.impl.Pipe(call)
+func (s implViewerServerStub) Pipe(ctx *context.T, call *ViewerPipeServerCallStub) (*vdl.Value, error) {
+	return s.impl.Pipe(ctx, call)
 }
 
 func (s implViewerServerStub) Globber() *rpc.GlobState {
