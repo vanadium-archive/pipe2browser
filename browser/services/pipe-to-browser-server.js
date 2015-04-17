@@ -63,9 +63,10 @@ export function publish(name, pipeRequestHandler) {
       super();
     }
 
-    pipe(ctx, $stream) {
+    pipe(ctx, serverCall, $stream) {
+      var secCall = serverCall.securityCall;
       return new Promise(function(resolve, reject) {
-        log.debug('received pipe request for:', ctx.suffix);
+        log.debug('received pipe request for:', secCall.suffix);
         var numBytesForThisCall = 0;
 
         var bufferStream = new ByteObjectStreamAdapter();
@@ -96,7 +97,7 @@ export function publish(name, pipeRequestHandler) {
 
         state.numPipes++;
         try {
-          pipeRequestHandler(ctx.suffix, stream);
+          pipeRequestHandler(secCall.suffix, stream);
         } catch(e) {
           // TODO(aghassemi) envyor issue #50
           // we want to reject but because of #50 we can't
