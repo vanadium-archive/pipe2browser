@@ -1,4 +1,4 @@
-export PATH:=$(V23_ROOT)/environment/cout/node/bin:$(CURDIR)/node_modules/.bin:$(PATH)
+export PATH:=$(V23_ROOT)/third_party/cout/node/bin:$(CURDIR)/node_modules/.bin:$(PATH)
 export GOPATH=$(CURDIR)/go
 export VDLPATH=$(GOPATH)
 
