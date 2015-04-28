@@ -26,7 +26,7 @@ export class PipeViewer {
   /*
    * play() function is called by the p2b framework when a pipe request for the
    * this specific pipe viewer comes in.
-   * @param {Veyron.Stream} stream Stream of data to be displayed.
+   * @param {Vanadium.Stream} stream Stream of data to be displayed.
    * @return {Promise<View>|{View}} a View or a promise of an
    * View that p2b can display.
    */

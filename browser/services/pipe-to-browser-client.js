@@ -14,7 +14,7 @@ var log = new Logger('services/p2b-client');
 /*
  * Pipes a stream of data to the P2B service identified
  * by the given vanadium name.
- * @param {string} name Veyron name of the destination service
+ * @param {string} name Vanadium name of the destination service
  * @param {Stream} Stream of data to pipe to it.
  * @return {Promise} Promise indicating if piping was successful or not
  */

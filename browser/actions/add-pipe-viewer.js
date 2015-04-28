@@ -45,7 +45,7 @@ export function addPipeViewer(name, stream) {
 /*
  * Handles the addPipeViewer action.
  * @param {string} name Name of the Pipe Viewer that is requested to play the stream.
- * @param {Veyron.Stream} stream Stream of bytes from the p2b client.
+ * @param {Vanadium.Stream} stream Stream of bytes from the p2b client.
  *
  * @private
  */

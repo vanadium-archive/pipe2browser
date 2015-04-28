@@ -4,7 +4,7 @@
 
 /*
  * Returns whether the given vLogItem matches the map of filters.
- * @param {Object} item A single veyron log item as defined by parser.item
+ * @param {Object} item A single Vanadium log item as defined by parser.item
  * @param {map} filters Map of keys to selected filter values as defined
  * when constructing the filters in the grid components.
  * e.g. filters:{'date':'all', 'levels':['info','warning']}
@@ -29,7 +29,7 @@ export function vLogFilter(item, filters) {
 
 /*
  * Returns whether the given vLogItem matches a single filter
- * @param {Object} item A single veyron log item as defined by parser.item
+ * @param {Object} item A single Vanadium log item as defined by parser.item
  * @param {string} key filter key e.g. 'date'
  * @param {string} value filter value e.g. 'all'
  * @return {boolean} Whether the item satisfies then the given filter key value pair
@@ -49,7 +49,7 @@ function applyFilter(item, key, value) {
 
 /*
  * Returns whether item's date satisfies the date filter
- * @param {Object} item A single veyron log item as defined by parser.item
+ * @param {Object} item A single Vanadium log item as defined by parser.item
  * @param {string} since One of 'all', '1' or '24'. for Anytime, past one hour, past 24 hours.
  * @return {boolean} whether item's date satisfies the date filter
  * @private
@@ -67,7 +67,7 @@ function filterDate(item, since) {
 
 /*
  * Returns whether item's level is one of the given values
- * @param {Object} item A single veyron log item as defined by parser.item
+ * @param {Object} item A single Vanadium log item as defined by parser.item
  * @param {Array<string>} levels Array of level values e.g. ['info','warning']
  * @return {boolean} whether item's level is one of the given values
  * @private

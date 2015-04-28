@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 /*
- * Implements and publishes a Veyron service which accepts streaming RPC
+ * Implements and publishes a Vanadium service which accepts streaming RPC
  * requests and delegates the stream back to the provided pipeRequestHandler.
  * It also exposes the state of the service.
  * @fileoverview
@@ -55,7 +55,7 @@ export function publish(name, pipeRequestHandler) {
   log.debug('publishing under name:', name);
 
   /*
-   * Veyron pipe to browser service implementation.
+   * Vanadium pipe to browser service implementation.
    * Implements the p2b VDL.
    */
   class Service extends vdl.Viewer {
