@@ -5,7 +5,7 @@
 import { View } from 'libs/mvc/view'
 
 /*
- * View displaying a list of currently published PipeToBrowsers instances
+ * View displaying a list of currently published Pipe2Browsers instances
  * @class
  * @extends {View}
  */
