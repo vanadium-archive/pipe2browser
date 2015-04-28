@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Command p2b is a client for the pipetobrowser service. It pipes its
-// standard input to a pipetobrowser service.
+// Command p2b is a client for the Pipe2Browser service. It pipes its
+// standard input to a Pipe2Browser service.
 package main
 
 import (
