@@ -73,7 +73,7 @@ function initPageView() {
 
   var neighborhoodSubPageItem = new SubPageItem('neighborhood');
   neighborhoodSubPageItem.name = 'Neighborhood';
-  neighborhoodSubPageItem.icon = 'social:circles-extended';
+  neighborhoodSubPageItem.icon = 'social:location-city';
   neighborhoodSubPageItem.onActivate = navigateNeigbourhood;
   page.subPages.push(neighborhoodSubPageItem);
 
