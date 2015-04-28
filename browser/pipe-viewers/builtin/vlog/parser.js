@@ -3,12 +3,12 @@
 // license that can be found in the LICENSE file.
 
 /*
- * Parse utilities for veyron logs
+ * Parse utilities for Vanadium logs
  * @fileoverview
  */
 
 /*
- * Parses a single line of text produced by veyron logger
+ * Parses a single line of text produced by Vanadium logger
  * into an structured object representing it.
  * Log lines have this form:
  * Lmmdd hh:mm:ss.uuuuuu threadid file:line] msg...
@@ -21,7 +21,7 @@
  *  file             The file name
  *  line             The line number
  *  msg              The user-supplied message
- * @param {string} vlogLine A single line of veyron log
+ * @param {string} vlogLine A single line of Vanadium log
  * @return {parser.item} A parsed object containing log level, date, file,
  * line number, thread id and message.
  */
@@ -71,7 +71,7 @@ var levelCodes = {
 }
 
 /*
- * A structure representing a veyron log item
+ * A structure representing a Vanadium log item
  * @param {string} level, one of info, warning, error, fatal
  * @param {date} date, The date and time of the log item
  * @param {integer} threadId The thread ID as returned by GetTID()

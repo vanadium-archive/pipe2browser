@@ -29,11 +29,11 @@
   <p>Ever wanted to sort, search and filter result of <span class="mono">git status</span> to make sense of it all? <span class="name">git/status</span> can do that. You need to use <span class="mono">git status --short</span> though, so we can parse it.</p>
   <pre class="code">git status --short | p2b {{publishedName}}/git/status</pre>
 
-  <h4>Veyron Log Viewer</h4>
-  <span class="name">vlog</span> displays Veyron logs in a DataGrid and supports sorting, searching, paging, pausing and filtering based on time and log level. DataGrid is responsive and may hide columns on smaller screens but you can always see all the fields by using the more info icon.</p>
+  <h4>Vanadium Log Viewer</h4>
+  <span class="name">vlog</span> displays Vanadium logs in a DataGrid and supports sorting, searching, paging, pausing and filtering based on time and log level. DataGrid is responsive and may hide columns on smaller screens but you can always see all the fields by using the more info icon.</p>
   <pre class="code">cat vlogfile.txt | p2b {{publishedName}}/vlog</pre>
-  <p>If you want to pipe logs from a Veyron service directly, you need to pipe stderr or strout first using <span class="mono">2&gt;&amp;1</span></p>
-  <pre class="code">myVeyronServerd -v=3 2&gt;&amp;1 | p2b {{publishedName}}/vlog</pre>
+  <p>If you want to pipe logs from a Vanadium service directly, you need to pipe stderr or strout first using <span class="mono">2&gt;&amp;1</span></p>
+  <pre class="code">myVanadiumServerd -v=3 2&gt;&amp;1 | p2b {{publishedName}}/vlog</pre>
 
   <h4>Panic Console</h4>
   <span class="name">console/panic</span> renders plaintext as <span class="name">console</span> until it detects a Go panic. Go panics crash every running goroutine, leading to a spew of stderr logs. This plugin groups goroutine crash logs into show/hide blocks. The plugin stops scrolling at the first goroutine block, which caused the panic. To further assist the debugging process, lines can be highlighted by keyword using an input filter. Don't forget to pipe both stdout and stderr to this plugin!

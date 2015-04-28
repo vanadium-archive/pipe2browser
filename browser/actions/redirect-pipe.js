@@ -3,8 +3,8 @@
 // license that can be found in the LICENSE file.
 
 /*
- * Redirects a stream to another veyron name. It prompts the user to pick
- * a Veyron name before redirecting and allows the user to chose between
+ * Redirects a stream to another Vanadium name. It prompts the user to pick
+ * a Vanadium name before redirecting and allows the user to chose between
  * redirecting all the data or just new incoming data.
  * @fileoverview
  */
@@ -63,7 +63,7 @@ function actionHandler(stream, currentPluginName) {
 
   // also get the list of all existing P2B names in the namespace and supply it to the dialog
   getAllPublishedP2BNames().then((allNames) => {
-    // append current plugin name to the veyron names for better UX
+    // append current plugin name to the Vanadium names for better UX
     dialog.existingNames = allNames.map((n) => {
       return n + '/' + currentPluginName;
     });

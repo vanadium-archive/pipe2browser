@@ -102,7 +102,7 @@ function showPublishView() {
  * pipeRequestHandler is called by the p2b service whenever a new request comes in.
  * We simply delegate to the addPipeViewer action.
  * @param {string} name Name of the Pipe Viewer that is requested to play the stream.
- * @param {Veyron.Stream} stream Stream of bytes from the p2b client.
+ * @param {Vanadium.Stream} stream Stream of bytes from the p2b client.
  *
  * @private
  */

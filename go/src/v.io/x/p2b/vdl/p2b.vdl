@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package vdl is an example of a veyron service for
+// Package vdl is an example of a Vanadium service for
 // streaming data from a pipe to a browser, which can visualize this
 // data.
 package vdl
