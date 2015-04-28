@@ -6,19 +6,28 @@ display a stream of data.
 
 For example one can do:
 
-``
+```
 echo "Hi!" | p2b users/jane@google.com/chrome/p2b/jane/console
-``
+```
+
+<img src="https://cloud.githubusercontent.com/assets/2099009/7381405/e82f7438-edb7-11e4-971b-47b987df832a.png" alt="Screenshot of P2B with the console viewer showing text hello in different languages." width=600/>
 
 or
 
-``
-cat cat.jpg | p2b -binary users/jane@google.com/chrome/p2b/jane/image
-``
+```
+cat cat.jpg | p2b users/jane@google.com/chrome/p2b/jane/image
+```
+
+<img src="https://cloud.githubusercontent.com/assets/2099009/7381409/eabbbaf4-edb7-11e4-838c-aa5bc18fe3de.png" alt="Screenshot of P2B with the console viewer showing a photo of a cat." width=600/>
+
 
 where *users/jane@google.com/chrome/p2b/jane* is the Object name where p2b service
 is running in the browser. The suffix *console* or *image* specifies what
 viewer should be used to display the data.
+
+Data pipes can also be redirected to other instances of P2B.
+
+<img src="https://cloud.githubusercontent.com/assets/2099009/7381411/ec8a6970-edb7-11e4-8a8e-771acd04f2d6.png" alt="Screenshot of P2B with the redirect dialog action showing a list of P2B instances to redirect to." width=600/>
 
 Please see the help page inside the P2B application for detailed tutorials.
 
