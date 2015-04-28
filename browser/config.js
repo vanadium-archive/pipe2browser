@@ -54,6 +54,16 @@ System.config({
     "github:jspm/nodelibs-https@0.1.0": {
       "https-browserify": "npm:https-browserify@0.0.0"
     },
+    "github:jspm/nodelibs-net@0.1.2": {
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "crypto": "github:jspm/nodelibs-crypto@0.1.0",
+      "http": "github:jspm/nodelibs-http@1.7.0",
+      "net": "github:jspm/nodelibs-net@0.1.2",
+      "process": "github:jspm/nodelibs-process@0.1.1",
+      "stream": "github:jspm/nodelibs-stream@0.1.0",
+      "timers": "github:jspm/nodelibs-timers@0.1.0",
+      "util": "github:jspm/nodelibs-util@0.1.0"
+    },
     "github:jspm/nodelibs-os@0.1.0": {
       "os-browserify": "npm:os-browserify@0.1.2"
     },
@@ -387,8 +397,15 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:vanadium@0.0.1": {
+      "assert": "github:jspm/nodelibs-assert@0.1.0",
       "bluebird": "npm:bluebird@2.9.8",
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "child_process": "github:jspm/nodelibs-child_process@0.1.0",
+      "console": "github:jspm/nodelibs-console@0.1.0",
+      "constants": "github:jspm/nodelibs-constants@0.1.0",
+      "crypto": "github:jspm/nodelibs-crypto@0.1.0",
+      "dgram": "github:jspm/nodelibs-dgram@0.1.0",
+      "dns": "github:jspm/nodelibs-dns@0.1.0",
       "domready": "npm:domready@1.0.7",
       "es6-shim": "npm:es6-shim@0.20.4",
       "eventemitter2": "npm:eventemitter2@0.4.14",
@@ -401,13 +418,26 @@ System.config({
       "is-browser": "npm:is-browser@2.0.1",
       "lru-cache": "npm:lru-cache@2.5.0",
       "minimatch": "npm:minimatch@1.0.0",
+      "module": "github:jspm/nodelibs-module@0.1.0",
+      "net": "github:jspm/nodelibs-net@0.1.2",
+      "os": "github:jspm/nodelibs-os@0.1.0",
+      "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.1",
+      "punycode": "github:jspm/nodelibs-punycode@0.1.0",
+      "querystring": "github:jspm/nodelibs-querystring@0.1.0",
       "randombytes": "npm:randombytes@2.0.1",
       "stream": "github:jspm/nodelibs-stream@0.1.0",
+      "string_decoder": "github:jspm/nodelibs-string_decoder@0.1.0",
+      "systemjs-json": "github:systemjs/plugin-json@0.1.0",
+      "timers": "github:jspm/nodelibs-timers@0.1.0",
+      "tls": "github:jspm/nodelibs-tls@0.1.0",
+      "tty": "github:jspm/nodelibs-tty@0.1.0",
       "url": "github:jspm/nodelibs-url@0.1.0",
       "util": "github:jspm/nodelibs-util@0.1.0",
+      "vm": "github:jspm/nodelibs-vm@0.1.0",
       "ws": "npm:ws@0.4.32",
-      "xtend": "npm:xtend@4.0.0"
+      "xtend": "npm:xtend@4.0.0",
+      "zlib": "github:jspm/nodelibs-zlib@0.1.0"
     },
     "npm:vm-browserify@0.0.4": {
       "indexof": "npm:indexof@0.0.1"

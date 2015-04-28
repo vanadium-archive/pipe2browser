@@ -16,9 +16,9 @@ module.exports = {};
 
 // Types:
 var _type1 = new vdl.Type();
-_type1.kind = vdl.Kind.LIST;
+_type1.kind = vdl.kind.LIST;
 _type1.name = "";
-_type1.elem = vdl.Types.BYTE;
+_type1.elem = vdl.types.BYTE;
 _type1.freeze();
 
 
@@ -37,11 +37,11 @@ _type1.freeze();
   
     
 function Viewer(){}
-module.exports.Viewer = Viewer
+module.exports.Viewer = Viewer;
 
     
       
-Viewer.prototype.pipe = function(ctx) {
+Viewer.prototype.pipe = function(ctx, serverCall) {
   throw new Error('Method Pipe not implemented');
 };
      
@@ -49,7 +49,7 @@ Viewer.prototype.pipe = function(ctx) {
     
 Viewer.prototype._serviceDescription = {
   name: 'Viewer',
-  pkgPath: 'p2b/vdl',
+  pkgPath: 'v.io/x/p2b/vdl',
   doc: "// Viewer allows clients to stream data to it and to request a\n// particular viewer to format and display the data.",
   embeds: [],
   methods: [
@@ -62,7 +62,7 @@ Viewer.prototype._serviceDescription = {
     outArgs: [{
       name: '',
       doc: "",
-      type: vdl.Types.ANY
+      type: vdl.types.ANY
     },
     ],
     inStream: {

@@ -36,5 +36,11 @@ export function getAll() {
       ctx.cancel();
       return p2bServices;
     });
+  }).catch((err) => {
+    if (err instanceof vanadium.verror.ExtensionNotInstalledError) {
+      vanadium.extension.promptUserToInstallExtension();
+    } else {
+      throw err;
+    }
   });
 }

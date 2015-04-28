@@ -13,7 +13,7 @@ import { ByteObjectStreamAdapter } from 'libs/utils/byte-object-stream-adapter'
 import { StreamByteCounter } from 'libs/utils/stream-byte-counter'
 import { StreamCopy } from 'libs/utils/stream-copy'
 import vanadium from 'vanadium'
-import vdl from 'services/p2b/vdl/index'
+import vdl from 'services/v.io/x/p2b/vdl/index'
 
 var log = new Logger('services/p2b-server');
 var server;
@@ -135,7 +135,15 @@ export function publish(name, pipeRequestHandler) {
 
       return;
     });
-  }).catch((err) => { state.reset(); throw err; });
+  }).catch(function(err) {
+    if (err instanceof vanadium.verror.ExtensionNotInstalledError) {
+      vanadium.extension.promptUserToInstallExtension();
+      return;
+    } else {
+      state.reset();
+      throw err;
+    }
+  });
 }
 
 /*

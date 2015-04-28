@@ -28,5 +28,11 @@ export function pipe(name, stream) {
       stream.pipe(remoteStream);
       return Promise.resolve();
     });
+  }).catch((err) => {
+    if (err instanceof vanadium.verror.ExtensionNotInstalledError) {
+      vanadium.extension.promptUserToInstallExtension();
+    } else {
+      throw err;
+    }
   });
 }

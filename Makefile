@@ -7,15 +7,13 @@ JS_FILES = $(shell find browser -name "*.js" -a -not -name "build.js" -a -not -p
 # All HTML/CSS files except index.html and third party
 HTML_FILES = $(shell find browser -name "*.css" -a -not -path "*third-party*" -o  -name "*.html" -a -not -name "index.html" -a -not -path "*third-party*")
 
-# Builds everything
-all: node_modules browser/third-party browser/build.js browser/index.html $(V23_ROOT)/release/go/bin
+all: build
 
-# Build vdl.go
-go/src/v.io/x/p2b/vdl/p2b.vdl.go:
-	v23 run vdl generate -lang=go p2b/vdl
+# Builds everything
+build: node_modules go/bin/p2b browser/third-party browser/build.js browser/index.html
 
 # Compile p2b cli binary
-go/bin/p2b: go/src/v.io/x/p2b/main.go go/src/v.io/x/p2b/vdl/p2b.vdl.go
+go/bin/p2b: go/src/v.io/x/p2b/main.go go/src/v.io/x/p2b/vdl/p2b.vdl
 	v23 go install v.io/x/p2b/...
 
 # Install what we need from NPM, tools such as jspm, serve, etc...
@@ -46,11 +44,11 @@ browser/third-party: browser/third-party/npm/vanadium@0.0.1 browser/third-party/
 browser/third-party/ag-data-grid:
 	yes | cp -rf browser/libs/ui-components/data-grid browser/third-party/ag-data-grid
 
-browser/services/vdl/index.js:
+browser/services/v.io/x/p2b/vdl/index.js:
 	v23 run vdl generate --lang=javascript --js-out-dir=browser/services v.io/x/p2b/vdl
 
 # Bundle whole app and third-party JavaScript into a single build.js
-browser/build.js: $(JS_FILES) browser/services/vdl/index.js  browser/third-party node_modules
+browser/build.js: $(JS_FILES) browser/services/v.io/x/p2b/vdl/index.js browser/third-party node_modules
 	cd browser; \
 	jspm setmode local; \
 	jspm bundle app build.js
@@ -61,7 +59,7 @@ browser/index.html: $(HTML_FILES) browser/build.js node_modules
 	vulcanize -o index.html app.html
 
 # Serve
-start: browser/index.html
+start: build browser/index.html
 	serve browser/. --port 8000
 
 # Continuously watch for changes to .js, .html or .css files.
