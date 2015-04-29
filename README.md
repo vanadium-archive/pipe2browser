@@ -1,5 +1,9 @@
 # Pipe2Browser
-This Vanadium application makes it possible to pipe anything from any Unix-like console to the browser using the shell's regular pipe functionality. Data being piped to the browser then is displayed in a graphical and formatted way by a **viewer**. Viewers are pluggable pieces of code that know how to handle and display a stream of data.
+This Vanadium application makes it possible to pipe anything from any Unix-like
+console to the browser using the shell's regular pipe functionality. Data being
+piped to the browser then is displayed in a graphical and formatted way by a
+**viewer**. Viewers are pluggable pieces of code that know how to handle and
+display a stream of data.
 
 For example:
 
@@ -21,9 +25,14 @@ where *users/jane@google.com/chrome/p2b/jane* is the object name where p2b servi
 is running in the browser. The suffix *console* or *image* specifies what
 viewer should be used to display the data.
 
-P2B supports several built-in plugins such as console, image viewer, log viewer, git status viewer and dev/null. Users can create their own plugins and plug them remotely as well.
+P2B supports several built-in plugins such as console, image viewer, log
+viewer, git status viewer and dev/null. Users can create their own plugins and
+plug them remotely as well.
 
 Users can also redirect pipes of data to other instances of P2B.
+
+Use of the Vanadium Security Model ensures that all data between the console
+and browser is encrypted and authorized.
 
 <img src="https://cloud.githubusercontent.com/assets/2099009/7381411/ec8a6970-edb7-11e4-8a8e-771acd04f2d6.png" alt="Screenshot of P2B with the redirect dialog action showing a list of P2B instances to redirect to." width=600/>
 
@@ -36,10 +45,9 @@ Please see the help page inside the P2B application for detailed tutorials.
 make start
 ```
 Navigate to [http://localhost:8000](http://localhost:8000) and publish under a name such as 'foo'
-then run the `vbash` tool to setup your Vanadium credentials
+then setup a shell (bash) running with your Vanadium credentials:
 ```
-# run vbash to setup your Vanadium credentials
-$V23_ROOT/release/go/src/v.io/x/ref/cmd/vbash
+make shell
 ```
 and then run `p2b` cli client, for instance:
 ```

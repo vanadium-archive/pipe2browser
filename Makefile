@@ -62,6 +62,11 @@ browser/index.html: $(HTML_FILES) browser/build.js node_modules
 start: build browser/index.html
 	serve browser/. --port 8000
 
+shell:
+	v23 go install v.io/x/ref/cmd/principal v.io/x/ref/services/agent/agentd
+	./shell.sh
+
+
 # Continuously watch for changes to .js, .html or .css files.
 # Rebundle the appropriate file (build.js and/or index.html) when local files change
 watch:
@@ -77,5 +82,6 @@ clean:
 	rm -rf browser/third-party
 	rm -rf go/{bin,pkg}
 	rm -rf node_modules
+	rm -rf credentials
 
 .PHONY: start clean watch test

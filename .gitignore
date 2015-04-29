@@ -5,3 +5,4 @@ go/bin
 go/pkg
 node_modules
 /.v23
+/credentials
