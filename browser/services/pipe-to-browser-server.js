@@ -12,6 +12,7 @@ import { Logger } from 'libs/logs/logger'
 import { ByteObjectStreamAdapter } from 'libs/utils/byte-object-stream-adapter'
 import { StreamByteCounter } from 'libs/utils/stream-byte-counter'
 import { StreamCopy } from 'libs/utils/stream-copy'
+import { get as getPipeViewer } from 'pipe-viewers/manager'
 import vanadium from 'vanadium'
 import vdl from 'services/v.io/x/p2b/vdl/index'
 
@@ -110,6 +111,22 @@ export function publish(name, pipeRequestHandler) {
   }
 
   var p2b = new Service();
+  var dispatcher = function(suffix) {
+    // Ensure we can handle the suffix
+    return getPipeViewer(suffix).then(() => {
+      var defaultAuthorizer = null;
+      return {
+        service: p2b,
+        // TODO(aghassemi) For now we only allow p2b to talk to instances running
+        // under the default authorizer
+        authorizer: defaultAuthorizer
+      };
+    }).catch(() => {
+      return Promise.reject(
+        new Error(suffix + " plugin does not exist.")
+      );
+    });
+  }
 
   state.publishing = true;
 
@@ -120,12 +137,7 @@ export function publish(name, pipeRequestHandler) {
     var nsPrefix = runtime.accountName.replace('dev.v.io/root/', '');
     var serviceName = vanadium.naming.join(nsPrefix, 'p2b', name);
 
-    // TODO(aghassemi) For now we only allow p2b to talk to instances running
-    // under the default authorizer
-    var defaultAuthorizer = null;
-    var options = {authorizer: defaultAuthorizer};
-
-    return server.serve(serviceName, p2b, options).then(() => {
+    return server.serveDispatcher(serviceName, dispatcher).then(() => {
       log.debug('published!');
 
       state.published = true;

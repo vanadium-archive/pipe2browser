@@ -229,6 +229,11 @@ System.config({
       "inherits": "npm:inherits@2.0.1",
       "systemjs-json": "github:systemjs/plugin-json@0.1.0"
     },
+    "npm:es6-promise@2.1.1": {
+      "assert": "github:jspm/nodelibs-assert@0.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.1",
+      "util": "github:jspm/nodelibs-util@0.1.0"
+    },
     "npm:es6-shim@0.20.4": {
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
@@ -398,7 +403,6 @@ System.config({
     },
     "npm:vanadium@0.0.1": {
       "assert": "github:jspm/nodelibs-assert@0.1.0",
-      "bluebird": "npm:bluebird@2.9.8",
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "child_process": "github:jspm/nodelibs-child_process@0.1.0",
       "console": "github:jspm/nodelibs-console@0.1.0",
@@ -407,6 +411,7 @@ System.config({
       "dgram": "github:jspm/nodelibs-dgram@0.1.0",
       "dns": "github:jspm/nodelibs-dns@0.1.0",
       "domready": "npm:domready@1.0.7",
+      "es6-promise": "npm:es6-promise@2.1.1",
       "es6-shim": "npm:es6-shim@0.20.4",
       "eventemitter2": "npm:eventemitter2@0.4.14",
       "events": "github:jspm/nodelibs-events@0.1.0",
