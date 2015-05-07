@@ -66,8 +66,11 @@ export function publish(name, pipeRequestHandler) {
 
     pipe(ctx, serverCall, $stream) {
       var secCall = serverCall.securityCall;
+      // Since p2b's suffixes can be an arbitrary string representing a plugin name or address,
+      // we expect them to come in encoded so we can handle / in the plugin names as well.
+      var plugin = vanadium.naming.decodeAsNameElement(secCall.suffix);
       return new Promise(function(resolve, reject) {
-        log.debug('received pipe request for:', secCall.suffix);
+        log.debug('received pipe request for:', plugin);
         var numBytesForThisCall = 0;
 
         var bufferStream = new ByteObjectStreamAdapter();
@@ -98,7 +101,7 @@ export function publish(name, pipeRequestHandler) {
 
         state.numPipes++;
         try {
-          pipeRequestHandler(secCall.suffix, stream);
+          pipeRequestHandler(plugin, stream);
         } catch(e) {
           // TODO(aghassemi) envyor issue #50
           // we want to reject but because of #50 we can't
@@ -112,6 +115,10 @@ export function publish(name, pipeRequestHandler) {
 
   var p2b = new Service();
   var dispatcher = function(suffix) {
+    // Since p2b's suffixes can be an arbitrary string representing a plugin name or address,
+    // we expect them to come in encoded so we can handle / in the plugin names as well.
+    suffix = vanadium.naming.decodeAsNameElement(suffix);
+
     // Ensure we can handle the suffix
     return getPipeViewer(suffix).then(() => {
       var defaultAuthorizer = null;
