@@ -18,8 +18,8 @@ go/bin/p2b: go/src/v.io/x/p2b/main.go go/src/v.io/x/p2b/vdl/p2b.vdl
 
 # Install what we need from NPM, tools such as jspm, serve, etc...
 node_modules: package.json
-	npm prune
-	npm install
+	:;npm prune
+	:;npm install
 	touch node_modules
 
 # Link a local copy of vanadium.js.
@@ -27,16 +27,16 @@ node_modules: package.json
 # it from npm
 browser/third-party/npm/vanadium@0.0.1: node_modules
 	cd $(V23_ROOT)/release/javascript/core && \
-	jspm link -y npm:vanadium@0.0.1
+	:;jspm link -y npm:vanadium@0.0.1
 	cd browser && \
-	jspm install -y -link npm:vanadium
+	:;jspm install -y -link npm:vanadium
 
 # Install JSPM and Bower packages as listed in browser/package.json from JSPM and browser/bower.json from bower
 browser/third-party: browser/third-party/npm/vanadium@0.0.1 browser/package.json browser/bower.json node_modules
 	cd browser && \
-	jspm install -y && \
-	bower prune && \
-	bower install
+	:;jspm install -y && \
+	:;bower prune && \
+	:;bower install
 	touch browser/third-party
 
 browser/services/v.io/x/p2b/vdl/index.js:
@@ -45,17 +45,17 @@ browser/services/v.io/x/p2b/vdl/index.js:
 # Bundle whole app and third-party JavaScript into a single build.js
 browser/build.js: $(JS_FILES) browser/services/v.io/x/p2b/vdl/index.js browser/third-party node_modules
 	cd browser; \
-	jspm setmode local; \
-	jspm bundle app build.js
+	:;jspm setmode local; \
+	:;jspm bundle app build.js
 
 # Bundle all app web components and third-party web components into a single index.html
 browser/index.html: $(HTML_FILES) browser/build.js node_modules
 	cd browser; \
-	vulcanize -o index.html app.html
+	:;vulcanize -o index.html app.html
 
 # Serve
 start: build browser/index.html
-	serve browser/. --port 8000
+	:;serve browser/. --port 8000
 
 shell:
 	v23 go install v.io/x/ref/cmd/principal v.io/x/ref/services/agent/agentd
