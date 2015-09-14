@@ -19,7 +19,7 @@ var log = new Logger('services/p2b-namespace');
  */
 export function getAll() {
   return vanadium.init().then((runtime) => {
-    var namespace = runtime.namespace();
+    var namespace = runtime.getNamespace();
     var ctx = runtime.getContext().withTimeout(5000);
     ctx.waitUntilDone(function(){});
 

@@ -1,10 +1,13 @@
-// Copyright 2015 The Vanadium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
 System.config({
-  "paths": {
-    "*": "*.js",
+  defaultJSExtensions: true,
+  transpiler: "babel",
+  babelOptions: {
+    "optional": [
+      "runtime",
+      "optimisation.modules.system"
+    ]
+  },
+  paths: {
     "pipe-viewer": "pipe-viewers/pipe-viewer.js",
     "pipe-viewer-delegation": "pipe-viewers/pipe-viewer-delegation.js",
     "view": "libs/mvc/view.js",
@@ -13,14 +16,15 @@ System.config({
     "web-component-loader": "libs/utils/web-component-loader.js",
     "formatting": "libs/utils/formatting.js",
     "app/*": "lib/*.js",
-    "github:*": "third-party/github/*.js",
-    "npm:*": "third-party/npm/*.js"
-  }
-});
+    "github:*": "third-party/github/*",
+    "npm:*": "third-party/npm/*"
+  },
 
-System.config({
-  "map": {
+  map: {
+    "babel": "npm:babel-core@5.8.24",
+    "babel-runtime": "npm:babel-runtime@5.8.20",
     "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+    "core-js": "npm:core-js@1.1.4",
     "npm:event-stream": "npm:event-stream@3.2.2",
     "npm:humanize": "npm:humanize@0.0.9",
     "stream": "github:jspm/nodelibs-stream@0.1.0",
@@ -45,10 +49,8 @@ System.config({
     },
     "github:jspm/nodelibs-http@1.7.0": {
       "Base64": "npm:Base64@0.2.1",
-      "events": "github:jspm/nodelibs-events@0.1.0",
       "inherits": "npm:inherits@2.0.1",
       "stream": "github:jspm/nodelibs-stream@0.1.0",
-      "url": "github:jspm/nodelibs-url@0.1.0",
       "util": "github:jspm/nodelibs-util@0.1.0"
     },
     "github:jspm/nodelibs-https@0.1.0": {
@@ -117,7 +119,7 @@ System.config({
     "npm:assert@1.3.0": {
       "util": "npm:util@0.10.3"
     },
-    "npm:bluebird@2.9.8": {
+    "npm:babel-runtime@5.8.20": {
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:browserify-aes@1.0.0": {
@@ -171,6 +173,11 @@ System.config({
       "util": "github:jspm/nodelibs-util@0.1.0"
     },
     "npm:constants-browserify@0.0.1": {
+      "systemjs-json": "github:systemjs/plugin-json@0.1.0"
+    },
+    "npm:core-js@1.1.4": {
+      "fs": "github:jspm/nodelibs-fs@0.1.1",
+      "process": "github:jspm/nodelibs-process@0.1.1",
       "systemjs-json": "github:systemjs/plugin-json@0.1.0"
     },
     "npm:core-util-is@1.0.1": {
@@ -348,10 +355,8 @@ System.config({
       "inherits": "npm:inherits@2.0.1",
       "isarray": "npm:isarray@0.0.1",
       "process": "github:jspm/nodelibs-process@0.1.1",
-      "stream": "npm:stream-browserify@1.0.0",
       "stream-browserify": "npm:stream-browserify@1.0.0",
-      "string_decoder": "npm:string_decoder@0.10.31",
-      "util": "github:jspm/nodelibs-util@0.1.0"
+      "string_decoder": "npm:string_decoder@0.10.31"
     },
     "npm:ripemd160@1.0.0": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
@@ -465,4 +470,3 @@ System.config({
     }
   }
 });
-

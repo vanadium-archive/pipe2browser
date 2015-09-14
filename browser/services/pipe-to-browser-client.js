@@ -20,7 +20,7 @@ var log = new Logger('services/p2b-client');
  */
 export function pipe(name, stream) {
   return vanadium.init().then((runtime) => {
-    var client = runtime.newClient();
+    var client = runtime.getClient();
     var ctx = runtime.getContext().withTimeout(5000);
     ctx.waitUntilDone(function(){});
     return client.bindTo(ctx, name).then((remote) => {

@@ -29,7 +29,7 @@ browser/third-party/npm/vanadium@0.0.1: node_modules
 	cd $(V23_ROOT)/release/javascript/core && \
 	:;jspm link -y npm:vanadium@0.0.1
 	cd browser && \
-	:;jspm install -y -link npm:vanadium
+	:;jspm install -y -l npm:vanadium@0.0.1
 
 # Install JSPM and Bower packages as listed in browser/package.json from JSPM and browser/bower.json from bower
 browser/third-party: browser/third-party/npm/vanadium@0.0.1 browser/package.json browser/bower.json node_modules

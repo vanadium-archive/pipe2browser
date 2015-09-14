@@ -15,7 +15,7 @@ export function gitStatusFilter(item, filters) {
     return true;
   }
 
-  for (var key in filters) {
+  for (var key of filters) {
     var isMatch = applyFilter(item, key, filters[key]);
     // we AND all the filters, short-circuit for early termination
     if (!isMatch) {

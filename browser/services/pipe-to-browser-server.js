@@ -138,15 +138,15 @@ export function publish(name, pipeRequestHandler) {
   state.publishing = true;
 
   return vanadium.init().then((runtime) => {
-    server = runtime.newServer();
     // the blessing name for the account is dev.v.io.io/u/<email>/<something>.
     // the object name we want to publish under is users/<email>/<something>/p2b/<name>.
     // So, replace "dev.v.io/u/" with "users/".
     var nsPrefix = runtime.accountName.replace('dev.v.io/u/', 'users/');
     var serviceName = vanadium.naming.join(nsPrefix, 'p2b', name);
 
-    return server.serveDispatcher(serviceName, dispatcher).then(() => {
+    return runtime.newDispatchingServer(serviceName, dispatcher).then((s) => {
       log.debug('published!');
+      server = s;
 
       state.published = true;
       state.publishing = false;

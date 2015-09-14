@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "This Vanadium application makes it possible to pipe anything from any Unix-like console to the browser using the shell's regular pipe functionality. Data being piped to the browser then is displayed in a graphical and formatted way by a viewer",
   "devDependencies": {
-    "jspm": "0.13.4",
+    "jspm": "0.16.2",
     "vulcanize": "~0.7.9",
     "serve": "~1.4.0",
     "bower": "~1.3.12"
