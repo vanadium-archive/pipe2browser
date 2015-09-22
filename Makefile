@@ -1,4 +1,4 @@
-export PATH:=$(V23_ROOT)/third_party/cout/node/bin:$(CURDIR)/node_modules/.bin:$(PATH)
+export PATH:=$(JIRI_ROOT)/third_party/cout/node/bin:$(CURDIR)/node_modules/.bin:$(PATH)
 export GOPATH=$(CURDIR)/go
 export VDLPATH=$(GOPATH)
 
@@ -26,7 +26,7 @@ node_modules: package.json
 # TODO(nlacasse): Remove this and put vanadium.js in package.json once we can get
 # it from npm
 browser/third-party/npm/vanadium@0.0.1: node_modules
-	cd $(V23_ROOT)/release/javascript/core && \
+	cd $(JIRI_ROOT)/release/javascript/core && \
 	:;jspm link -y npm:vanadium@0.0.1
 	cd browser && \
 	:;jspm install -y -l npm:vanadium@0.0.1

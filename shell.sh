@@ -9,9 +9,9 @@ export V23_CREDENTIALS="${DIR}/credentials"
 main() {
   if [[ -d "${DIR}/credentials" ]]
   then
-    ${V23_ROOT}/release/go/bin/agentd bash
+    ${JIRI_ROOT}/release/go/bin/agentd bash
   else
-    ${V23_ROOT}/release/go/bin/agentd bash -c "${V23_ROOT}/release/go/bin/principal seekblessings && exec bash"
+    ${JIRI_ROOT}/release/go/bin/agentd bash -c "${JIRI_ROOT}/release/go/bin/principal seekblessings && exec bash"
   fi
 }
 
