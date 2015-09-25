@@ -68,7 +68,7 @@ export function publish(name, pipeRequestHandler) {
       var secCall = serverCall.securityCall;
       // Since p2b's suffixes can be an arbitrary string representing a plugin name or address,
       // we expect them to come in encoded so we can handle / in the plugin names as well.
-      var plugin = vanadium.naming.decodeAsNameElement(secCall.suffix);
+      var plugin = vanadium.naming.decodeFromNameElement(secCall.suffix);
       return new Promise(function(resolve, reject) {
         log.debug('received pipe request for:', plugin);
         var numBytesForThisCall = 0;
@@ -117,7 +117,7 @@ export function publish(name, pipeRequestHandler) {
   var dispatcher = function(suffix) {
     // Since p2b's suffixes can be an arbitrary string representing a plugin name or address,
     // we expect them to come in encoded so we can handle / in the plugin names as well.
-    suffix = vanadium.naming.decodeAsNameElement(suffix);
+    suffix = vanadium.naming.decodeFromNameElement(suffix);
 
     // Ensure we can handle the suffix
     return getPipeViewer(suffix).then(() => {
