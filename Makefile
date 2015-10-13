@@ -1,4 +1,5 @@
-export PATH:=$(JIRI_ROOT)/third_party/cout/node/bin:$(CURDIR)/node_modules/.bin:$(PATH)
+NODE_DIR := $(shell jiri v23-profile env --profile=nodejs V23_TARGET_INSTALLATION_DIR=)
+export PATH:=$(NODE_DIR)/bin:$(CURDIR)/node_modules/.bin:$(PATH)
 export GOPATH=$(CURDIR)/go
 export VDLPATH=$(GOPATH)
 
