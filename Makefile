@@ -15,7 +15,7 @@ build: node_modules go/bin/p2b browser/third-party browser/build.js browser/inde
 
 # Compile p2b cli binary
 go/bin/p2b: go/src/v.io/x/p2b/main.go go/src/v.io/x/p2b/vdl/p2b.vdl
-	v23 go install v.io/x/p2b/...
+	jiri go install v.io/x/p2b/...
 
 # Install what we need from NPM, tools such as jspm, serve, etc...
 node_modules: package.json
@@ -41,7 +41,7 @@ browser/third-party: browser/third-party/npm/vanadium@0.0.1 browser/package.json
 	touch browser/third-party
 
 browser/services/v.io/x/p2b/vdl/index.js:
-	v23 run vdl generate --lang=javascript --js-out-dir=browser/services v.io/x/p2b/vdl
+	jiri run vdl generate --lang=javascript --js-out-dir=browser/services v.io/x/p2b/vdl
 
 # Bundle whole app and third-party JavaScript into a single build.js
 browser/build.js: $(JS_FILES) browser/services/v.io/x/p2b/vdl/index.js browser/third-party node_modules
@@ -59,7 +59,7 @@ start: build browser/index.html
 	:;serve browser/. --port 8000
 
 shell:
-	v23 go install v.io/x/ref/cmd/principal v.io/x/ref/services/agent/agentd
+	jiri go install v.io/x/ref/cmd/principal v.io/x/ref/services/agent/agentd
 	./shell.sh
 
 
