@@ -72,7 +72,11 @@ func main() {
 		return
 	}
 
-	ctx, shutdown := v23.Init()
+	ctx, shutdown, err := v23.TryInit()
+	if err != nil {
+		vlog.Errorf("Faile to initialize the vanadium runtime: %v", err)
+		return
+	}
 	defer shutdown()
 
 	name := flag.Arg(0)
