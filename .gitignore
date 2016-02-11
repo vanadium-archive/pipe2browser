@@ -1,10 +1,8 @@
 /.jiri
-#TODO(nlacasse): Get rid of .v23 below once v23->jiri transition is complete.
 browser/build.js*
 browser/index.html
 browser/third-party
 go/bin
 go/pkg
 node_modules
-/.v23
 /credentials
