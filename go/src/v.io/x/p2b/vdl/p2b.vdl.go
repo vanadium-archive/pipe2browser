@@ -16,7 +16,7 @@ import (
 	"v.io/v23"
 	"v.io/v23/context"
 	"v.io/v23/rpc"
-	"v.io/v23/vdl"
+	"v.io/v23/vom"
 )
 
 // ViewerClientMethods is the client interface
@@ -89,7 +89,7 @@ type ViewerPipeClientCall interface {
 	// Calling Finish is mandatory for releasing stream resources, unless the call
 	// has been canceled or any of the other methods return an error.  Finish should
 	// be called at most once.
-	Finish() (*vdl.Value, error)
+	Finish() (*vom.RawBytes, error)
 }
 
 type implViewerPipeClientCall struct {
@@ -113,7 +113,7 @@ func (c implViewerPipeClientCallSend) Send(item []byte) error {
 func (c implViewerPipeClientCallSend) Close() error {
 	return c.c.CloseSend()
 }
-func (c *implViewerPipeClientCall) Finish() (o0 *vdl.Value, err error) {
+func (c *implViewerPipeClientCall) Finish() (o0 *vom.RawBytes, err error) {
 	err = c.ClientCall.Finish(&o0)
 	return
 }
@@ -127,7 +127,7 @@ type ViewerServerMethods interface {
 	// Pipe creates a bidirectional pipe between client and viewer
 	// service, returns total number of bytes received by the service
 	// after streaming ends
-	Pipe(*context.T, ViewerPipeServerCall) (*vdl.Value, error)
+	Pipe(*context.T, ViewerPipeServerCall) (*vom.RawBytes, error)
 }
 
 // ViewerServerStubMethods is the server interface containing
@@ -138,7 +138,7 @@ type ViewerServerStubMethods interface {
 	// Pipe creates a bidirectional pipe between client and viewer
 	// service, returns total number of bytes received by the service
 	// after streaming ends
-	Pipe(*context.T, *ViewerPipeServerCallStub) (*vdl.Value, error)
+	Pipe(*context.T, *ViewerPipeServerCallStub) (*vom.RawBytes, error)
 }
 
 // ViewerServerStub adds universal methods to ViewerServerStubMethods.
@@ -170,7 +170,7 @@ type implViewerServerStub struct {
 	gs   *rpc.GlobState
 }
 
-func (s implViewerServerStub) Pipe(ctx *context.T, call *ViewerPipeServerCallStub) (*vdl.Value, error) {
+func (s implViewerServerStub) Pipe(ctx *context.T, call *ViewerPipeServerCallStub) (*vom.RawBytes, error) {
 	return s.impl.Pipe(ctx, call)
 }
 
@@ -195,7 +195,7 @@ var descViewer = rpc.InterfaceDesc{
 			Name: "Pipe",
 			Doc:  "// Pipe creates a bidirectional pipe between client and viewer\n// service, returns total number of bytes received by the service\n// after streaming ends",
 			OutArgs: []rpc.ArgDesc{
-				{"", ``}, // *vdl.Value
+				{"", ``}, // *vom.RawBytes
 			},
 		},
 	},
