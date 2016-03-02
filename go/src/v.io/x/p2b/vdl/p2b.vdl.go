@@ -19,6 +19,9 @@ import (
 	"v.io/v23/vom"
 )
 
+func __VDLEnsureNativeBuilt_p2b() {
+}
+
 // ViewerClientMethods is the client interface
 // containing Viewer methods.
 //
