@@ -3,6 +3,10 @@ export PATH:=$(NODE_DIR)/bin:$(CURDIR)/node_modules/.bin:$(PATH)
 export GOPATH=$(CURDIR)/go
 export VDLPATH=$(GOPATH)
 
+# NOTE: we run npm using 'node npm' to avoid relying on the shebang line in the
+# npm script, which can exceed the Linux shebang length limit on Jenkins.
+NPM := $(NODE_DIR)/bin/npm
+
 # All JS files except build.js and third party
 JS_FILES = $(shell find browser -name "*.js" -a -not -name "build.js" -a -not -path "*third-party*")
 # All HTML/CSS files except index.html and third party
@@ -19,8 +23,8 @@ go/bin/p2b: go/src/v.io/x/p2b/main.go go/src/v.io/x/p2b/vdl/p2b.vdl
 
 # Install what we need from NPM, tools such as jspm, serve, etc...
 node_modules: package.json
-	:;npm prune
-	:;npm install
+	:;node $(NPM) prune
+	:;node $(NPM) install
 	touch node_modules
 
 # Link a local copy of vanadium.js.
